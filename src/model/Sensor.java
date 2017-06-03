@@ -1,3 +1,7 @@
+package model;
+
+import model.Location;
+
 /**
  * Created by yizhou on 6/2/17.
  */

@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-/**
- * Created by yizhou on 6/2/17.
- */
-public class Location {
+package model;
 
-}
-||||||| merged common ancestors
-=======
-package Model;
+import model.Event;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/2.
@@ -90,23 +86,3 @@ public class Location {
         return sb.toString();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
->>>>>>> dbd555714896eb465eb0632169eb87686749468b

@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-/**
- * Created by yizhou on 6/2/17.
- */
-public class Service {
-}
-||||||| merged common ancestors
-=======
-package Model;
+package model;
 import java.util.*;
 
 /**
@@ -138,7 +130,5 @@ public class Service {
         sb.append("emergencyTelephoneSecondary = " + emergencyTelephoneSecondary);
         return sb.toString();
     }
-
-
 }
->>>>>>> dbd555714896eb465eb0632169eb87686749468b
+
