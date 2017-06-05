@@ -2,81 +2,51 @@ package model;
 
 import java.util.Date;
 
-/**
- * Created by yizhou on 6/2/17.
- */
 public class Event {
-    private int id;
-    // 0 denote break, 1 denote fire, 2 denote both
-    private int eventType;
-    private Location location;
-    private Date occurenceTime;
-    private Date firstCallMade;
-    private Date responseTime;
-    private boolean alarmed;
-    private boolean callMade;
 
-    public int getId() {
-        return id;
+    public enum EventType {
+        BREAK_IN,
+        FIRE
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    private final EventType eventType;
+    private final String sectionId;
+    private final Date triggerTime;
+    private final Date firstCallTime;
+    private final int callCount;
+    private final Date responseTime;
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public int getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(int eventType) {
+    public Event(EventType eventType, String sectionId, Date triggerTime, Date firstCallTime, int callCount, Date responseTime) {
         this.eventType = eventType;
-    }
-
-    public Date getOccurenceTime() {
-        return occurenceTime;
-    }
-
-    public void setOccurenceTime(Date occurenceTime) {
-        this.occurenceTime = occurenceTime;
-    }
-
-    public Date getFirstCallMade() {
-        return firstCallMade;
-    }
-
-    public void setFirstCallMade(Date firstCallMade) {
-        this.firstCallMade = firstCallMade;
-    }
-
-    public Date getResponseTime() {
-        return responseTime;
-    }
-
-    public void setResponseTime(Date responseTime) {
+        this.sectionId = sectionId;
+        this.triggerTime = triggerTime;
+        this.firstCallTime = firstCallTime;
+        this.callCount = callCount;
         this.responseTime = responseTime;
     }
 
-    public boolean isAlarmed() {
-        return alarmed;
+    public Event(String eventString) {
+        String[] eventStringList = eventString.split(",");
+        this.eventType = EventType.valueOf(eventStringList[0]);
+        this.sectionId = eventStringList[1];
+        this.triggerTime = new Date(Long.valueOf(eventStringList[2]));
+        this.firstCallTime = new Date(Long.valueOf(eventStringList[3]));
+        this.callCount = Integer.valueOf(eventStringList[4]);
+        this.responseTime = new Date(Long.valueOf(eventStringList[5]));
     }
 
-    public void setAlarmed(boolean alarmed) {
-        this.alarmed = alarmed;
+    public EventType getEventType() {
+        return eventType;
     }
 
-    public boolean isCallMade() {
-        return callMade;
-    }
-
-    public void setCallMade(boolean callMade) {
-        this.callMade = callMade;
+    @Override
+    public String toString() {
+        return String.format("%s,%s,%s,%s,%s,%s",
+                eventType,
+                sectionId,
+                triggerTime.getTime(),
+                firstCallTime.getTime(),
+                callCount,
+                responseTime.getTime());
     }
 }

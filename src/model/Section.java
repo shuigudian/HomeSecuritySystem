@@ -1,88 +1,97 @@
 package model;
 
-import model.Event;
+import model.Sensor.SensorType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by Administrator on 2017/6/2.
- */
-public class Location {
-    private Long id;
+public class Section {
 
-    private String locationCode;
-    private String locationName;
-    private Service service;
-    private List<Sensor> sensors = new ArrayList<Sensor>();
-    private List<Event> events = new ArrayList<Event>();
-
-    public Location() {
+    public enum SensorState {
+        UNINSTALLED,
+        ACTIVATED,
+        DEACTIVATED,
+        SCHEDULED
     }
 
-    public Location(final String locationCode, final String locationName, final Service service) {
-        this.locationCode = locationCode;
-        this.locationName = locationName;
-        this.service = service;
+    private final String id;
+    private final String name;
+    private final Map<SensorType, SensorState> sensorStateMap = new HashMap<>();
+    private final Map<SensorType, ScheduledTimeRange> scheduledTimeRangeMap = new HashMap<>();
+
+    public Section(String sectionString) {
+        String[] sectionStateArray = sectionString.split(",");
+        id = sectionStateArray[0];
+        name = sectionStateArray[1];
+        sensorStateMap.put(SensorType.MOTION, SensorState.valueOf(sectionStateArray[2]));
+        sensorStateMap.put(SensorType.TEMPERATURE, SensorState.valueOf(sectionStateArray[3]));
+
+        scheduledTimeRangeMap.put(SensorType.MOTION,
+                new ScheduledTimeRange(Integer.valueOf(sectionStateArray[4]), Integer.valueOf(sectionStateArray[5])));
+        scheduledTimeRangeMap.put(SensorType.TEMPERATURE,
+                new ScheduledTimeRange(Integer.valueOf(sectionStateArray[6]), Integer.valueOf(sectionStateArray[7])));
     }
 
-    public Long getId() {
+    public SensorState getSensorState(SensorType sensorType) {
+        return sensorStateMap.get(sensorType);
+    }
+
+    public void setSensorState(SensorType sensorType, SensorState sensorState) {
+        sensorStateMap.put(sensorType, sensorState);
+    }
+
+    public LocalTime getSensorScheduledFromTime(SensorType sensorType) {
+        return scheduledTimeRangeMap.get(sensorType).getFrom();
+    }
+
+    public void setSensorScheduledFromTime(SensorType sensorType, LocalTime sensorScheduledFromTime) {
+        scheduledTimeRangeMap.get(sensorType).setFrom(sensorScheduledFromTime);
+    }
+
+    public LocalTime getSensorScheduledToTime(SensorType sensorType) {
+        return scheduledTimeRangeMap.get(sensorType).getTo();
+    }
+
+    public void setSensorScheduledToTime(SensorType sensorType, LocalTime sensorScheduledToTime) {
+        scheduledTimeRangeMap.get(sensorType).setTo(sensorScheduledToTime);
+    }
+
+    public boolean isSensorInstalled(SensorType sensorType) {
+        return !sensorStateMap.get(sensorType).equals(SensorState.UNINSTALLED);
+    }
+
+    public void setSensorInstalled(SensorType sensorType, boolean installed) {
+        sensorStateMap.put(sensorType, installed ? SensorState.ACTIVATED : SensorState.UNINSTALLED);
+    }
+
+    public boolean isSensorActive(SensorType sensorType) {
+        switch (sensorStateMap.get(sensorType)) {
+            case ACTIVATED:
+                return true;
+            case SCHEDULED:
+                return scheduledTimeRangeMap.get(sensorType).isInRange(LocalTime.now());
+            default:
+                return false;
+        }
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
-    public String getLocationCode() {
-        return locationCode;
-    }
-
-    public void setLocationCode(final String locationCode) {
-        this.locationCode = locationCode;
-    }
-
-    public String getLocationName() {
-        return locationName;
-    }
-
-    public void setLocationName(final String locationName) {
-        this.locationName = locationName;
-    }
-
-    public void setService(final Service service) {
-        this.service = service;
-    }
-
-    public List<Sensor> getSensors() {
-        return sensors;
-    }
-
-    public void setSensors(final List<Sensor> sensors) {
-        this.sensors = sensors;
-    }
-
-    public void addSensor(final Sensor sensor) {
-        sensors.add(sensor);
-    }
-
-    public void addEvent(final Event event) {
-        events.add(event);
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(final List<Event> events) {
-        this.events = events;
-    }
-
+    @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Id = " + id);
-        sb.append("locationName = " + locationName);
-        sb.append("serviceCode = " + service.getServiceCode());
-        return sb.toString();
+        return String.format("%s,%s,%s,%s,%s,%s",
+                id,
+                name,
+                sensorStateMap.get(SensorType.MOTION),
+                sensorStateMap.get(SensorType.TEMPERATURE),
+                scheduledTimeRangeMap.get(SensorType.MOTION).toString(),
+                scheduledTimeRangeMap.get(SensorType.TEMPERATURE).toString());
     }
 }

@@ -4,19 +4,40 @@ import model.Sensor;
 
 import javax.swing.*;
 
-public class TabbedPane extends JTabbedPane {
+public class HomeTabbedPane extends JTabbedPane {
 
-    public void createAfterLoginPanel() {
-        remove(0);
+    public HomeTabbedPane() {
+        addTab("Welcome", new WelcomePanel());
+    }
+
+    void switchToContentPanel() {
+        removeAll();
         addTab("Installation Configure", new InstallationConfigurePanel());
         addTab("Motion Sensor Configure", new ActivationConfigurePanel(Sensor.SensorType.MOTION));
         addTab("Temperature Sensor Configure", new ActivationConfigurePanel(Sensor.SensorType.TEMPERATURE));
         addTab("Simulate", new SimulatePanel());
-        addTab("Bill", new BillPanel());
-    }
-
-    public TabbedPane() {
-        addTab("Welcome", new WelcomePanel());
-
+        addTab("Billing", new BillingPanel());
+        addChangeListener(event -> {
+            int index = ((JTabbedPane) event.getSource()).getSelectedIndex();
+            switch (index) {
+                case 0:
+                    setComponentAt(index, new InstallationConfigurePanel());
+                    break;
+                case 1:
+                    setComponentAt(index, new ActivationConfigurePanel(Sensor.SensorType.MOTION));
+                    break;
+                case 2:
+                    setComponentAt(index, new ActivationConfigurePanel(Sensor.SensorType.TEMPERATURE));
+                    break;
+                case 3:
+                    setComponentAt(index, new SimulatePanel());
+                    break;
+                case 4:
+                    setComponentAt(index, new BillingPanel());
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 }
