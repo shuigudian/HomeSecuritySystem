@@ -119,19 +119,24 @@ class WelcomePanel extends Panel {
             String password = setPasswordTextFiled.getText();
             String contractServiceId = generateContractServiceId();
 
-            String startDate = startDatePicker.getDate().toString();
-            String endDate = endDatePicker.getDate().toString();
+            if((startDatePicker.toString().length()!= 0)&& (endDatePicker.toString().length()!=0)){
+                String startDate = startDatePicker.getDate().toString();
+                String endDate = endDatePicker.getDate().toString();
 
-            if (SecurityService.getInstance().createCustomer(
-                    name, address, primary, secondary, contact, password,contractServiceId,startDate, endDate)) {
-                JOptionPane.showMessageDialog(null, "Added Successfully");
-                HomeTabbedPane pane = (HomeTabbedPane) getParent();
-                pane.switchToContentPanel();
-            } else {
+                if (SecurityService.getInstance().createCustomer(
+                        name, address, primary, secondary, contact, password,contractServiceId,startDate, endDate)) {
+                    JOptionPane.showMessageDialog(null, "Added Successfully");
+                    HomeTabbedPane pane = (HomeTabbedPane) getParent();
+                    pane.switchToContentPanel();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Please fill all information and then save");
+                }
+            }
+            else {
                 JOptionPane.showMessageDialog(null, "Please fill all information and then save");
             }
         });
-
     }
 
     private String generateContractServiceId() {
