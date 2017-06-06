@@ -38,8 +38,19 @@ class AlarmSimulateButton extends JButton {
 
         messageTimer = new Timer(1000, e -> {
             callCount++;
-            String message = "Event Occurred :" + eventType + '\n' + "Emergency Number Calling Number : " + callCount + '\n';
-            messageArea.setText(message);
+            if(eventType.equals(EventType.BREAK_IN)) {
+                String message = "Event Occurred :" + eventType + '\n' + "Emergency Number Calling Number : " + callCount + '\n'
+                        + "The Monitoring service was notified!" + '\n'+"The alarm is ringing!" + '\n';
+                messageArea.setText(message);
+            }
+            if(eventType.equals(EventType.FIRE)){
+                String message =  "Event Occurred :" + eventType + '\n' + "Emergency Number Calling Number : " + callCount +'\n'
+                        +"The sprinklers are spinging !"+ '\n'+"The Monitoring service was notified!"+'\n'
+                        +"The alarm is ringing!" + '\n';
+                messageArea.setText(message);
+
+            }
+
         });
 
         addActionListener(e -> {
