@@ -38,7 +38,7 @@ class AlarmSimulateButton extends JButton {
 
         messageTimer = new Timer(1000, e -> {
             callCount++;
-            String message = "Event Ocurred :" + eventType + '\n' + "Emergency Number Calling Number : " + callCount + '\n';
+            String message = "Event Occurred :" + eventType + '\n' + "Emergency Number Calling Number : " + callCount + '\n';
             messageArea.setText(message);
         });
 
