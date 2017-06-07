@@ -32,7 +32,7 @@ class InstallationConfigurePanel extends JPanel {
 
         JTable table = new JTable(tableModel);
         table.setBackground(Color.GRAY);
-        table.setRowHeight(40);
+        table.setRowHeight(70);
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         add(new JScrollPane(table));
 
@@ -41,13 +41,16 @@ class InstallationConfigurePanel extends JPanel {
         passwordLable = new JLabel("Password");
         passwordLable.setVisible(false);
 
+
         passwordTextField = new JTextField();
-        passwordTextField.setPreferredSize(new Dimension(100,20));
+        passwordTextField.setPreferredSize(new Dimension(80,26));
         passwordTextField.setVisible(false);
         panel.add(passwordLable);
         panel.add(passwordTextField);
 
         JButton actionButton = new JButton("Edit");
+        Font bigFont = new Font("serif",Font.BOLD,16);
+        actionButton.setFont(bigFont);
         actionButton.addActionListener(e -> {
             if (tableModel.isCellEditable()) {
                 if(SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())) {
@@ -76,6 +79,7 @@ class InstallationConfigurePanel extends JPanel {
 
 
         panel.add(actionButton);
+
     }
 
     private static class CustomTableModel extends DefaultTableModel {

@@ -89,12 +89,15 @@ class ActivationConfigurePanel extends JPanel {
         passwordLable.setVisible(false);
 
         passwordTextField = new JTextField();
-        passwordTextField.setPreferredSize(new Dimension(100,20));
+        passwordTextField.setPreferredSize(new Dimension(80,25));
         passwordTextField.setVisible(false);
         panel.add(passwordLable);
         panel.add(passwordTextField);
 
         JButton actionButton = new JButton("Edit");
+        Font bigFont = new Font("serif",Font.BOLD,16);
+        actionButton.setFont(bigFont);
+
         actionButton.addActionListener(e -> {
             if (actionButton.getText().equals("Save")) {
                 if(SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())) {
@@ -132,30 +135,8 @@ class ActivationConfigurePanel extends JPanel {
 
       panel.add(actionButton);
 
-//        setEditable(false);
-//        JButton saveButton = new JButton("Edit");
-//        saveButton.addActionListener(e -> {
-//            if (saveButton.getText().equals("Edit")) {
-//                saveButton.setText("Save");
-//                setEditable(true);
-//            } else {
-//                saveButton.setText("Edit");
-//                setEditable(false);
-//                for (int i = 0; i < sectionList.size(); i++) {
-//                    Section section = sectionList.get(i);
-//                    SensorState newSensorState =
-//                            SensorState.valueOf((String) sensorActivationStateComboboxList.get(i).getSelectedItem());
-//                    section.setSensorState(sensorType, newSensorState);
-//                    if (newSensorState.equals(SensorState.SCHEDULED)) {
-//                        section.setSensorScheduledFromTime(sensorType, fromTimePickerList.get(i).getTime());
-//                        section.setSensorScheduledToTime(sensorType, toTimePickerList.get(i).getTime());
-//                    }
-//                }
-//
-//                securityService.saveSensorConfig();
-//            }
-//        });
-//        add(saveButton);
+
+
     }
 
     private void setEditable(boolean editable) {

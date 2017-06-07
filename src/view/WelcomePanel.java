@@ -27,31 +27,69 @@ class WelcomePanel extends Panel {
     }
 
     private void createPanelForExistingCustomer() {
-        JLabel passwordLabel = new JLabel("Please input your password");
-        passwordTextField = new JTextField();
-        passwordTextField.setPreferredSize(new Dimension(100, 20));
 
-        JButton confirmPasswordButton = new JButton("Confirm");
+        JPanel login = new JPanel();
+        login.setLayout(null);
+
+
+       setLayout(new GridLayout(0, 1));
+//       FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER);
+//       JPanel pane0 = new JPanel(null);
+//       JPanel panex = new JPanel(null);
+//        JPanel paney = new JPanel(null);
+
+
+    //    passwordTextField.setPreferredSize(new Dimension(100, 20));
+
+        JLabel nameLabel = new JLabel("User Name:");
+        customerNameTextFiled = new JTextField(20);
+        nameLabel.setBounds(400,200,80,25);
+        customerNameTextFiled.setBounds(500,200,160,25);
+
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setBounds(400,250,80,25);
+        passwordTextField = new JTextField(20);
+        passwordTextField.setBounds(500,250,160,25);
+
+
+  //      customerNameTextFiled.setPreferredSize(new Dimension(100,20));
+
+
+        JButton confirmPasswordButton = new JButton("Login");
+        Font bigFont = new Font("serif",Font.BOLD,20);
+        confirmPasswordButton.setFont(bigFont);
+        confirmPasswordButton.setBounds(518,300,120,25);
+
         confirmPasswordButton.addActionListener(e -> {
-            if (SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())) {
+            if (SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())
+                    &&(SecurityService.getInstance().getCustomer().getName().equals(customerNameTextFiled.getText()))) {
                 HomeTabbedPane pane = (HomeTabbedPane) getParent();
                 pane.switchToContentPanel();
             }
         });
 
-        add(passwordLabel);
-        add(passwordTextField);
-        add(confirmPasswordButton);
+        add(login);
+//        add(panex);
+//        add(paney);
+
+        login.add(nameLabel);
+        login.add(customerNameTextFiled);
+        login.add(passwordLabel);
+        login.add(passwordTextField);
+        login.add(confirmPasswordButton);
+
     }
 
     private void createPanelForNewCustomer() {
-        setLayout(new GridLayout(0, 1));
+
+
+      setLayout(new GridLayout(0, 1));
         FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
         JLabel customerNameLabel = new JLabel("Your Name");
         customerNameTextFiled = new JTextField();
         customerNameTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p1 = new JPanel(flowLayout);
+       JPanel p1 = new JPanel(flowLayout);
         p1.add(customerNameLabel);
         p1.add(customerNameTextFiled);
         add(p1);
@@ -108,8 +146,15 @@ class WelcomePanel extends Panel {
         p6.add(setPasswordTextFiled);
         add(p6);
 
+        JPanel psave = new JPanel(flowLayout);
         JButton saveInfoButton = new JButton("Save Information");
-        add(saveInfoButton);
+        psave.add(saveInfoButton);
+        add(psave);
+
+
+
+
+
         saveInfoButton.addActionListener(e -> {
             String name = customerNameTextFiled.getText();
             String address = customerAddressTextFiled.getText();
