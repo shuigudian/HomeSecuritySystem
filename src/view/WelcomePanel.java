@@ -86,7 +86,8 @@ class WelcomePanel extends Panel {
 
 
      // setLayout(new GridLayout(0, 1));
-        setLayout(new MigLayout("","right"));
+
+        setLayout(new MigLayout("","grow"));
         FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
         JLabel customerNameLabel = new JLabel("Your Name");
@@ -131,11 +132,11 @@ class WelcomePanel extends Panel {
 
         JLabel startDateLabel = new JLabel("Coverage From");
         DatePicker startDatePicker = new DatePicker();
-        JLabel endDateLabel = new JLabel("To");
+        JLabel endDateLabel = new JLabel("Coverage To");
         DatePicker endDatePicker = new DatePicker();
   //      JPanel p7 = new JPanel(flowLayout);
         add(startDateLabel);
-        add(startDatePicker);
+        add(startDatePicker,"wrap");
         add(endDateLabel);
         add(endDatePicker,"wrap");
    //     add(p7,"wrap");

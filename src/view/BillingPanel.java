@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import static model.Event.EventType;
+import net.miginfocom.layout.Grid;
+import net.miginfocom.swing.MigLayout;
 
 class BillingPanel extends JPanel {
     private static final double motionSensorPrice = 50.00;
@@ -43,9 +45,9 @@ class BillingPanel extends JPanel {
     private JLabel customerContactLabel;
     private JTextField customerContactTextFiled;
 
-    private JLabel effectiveDatesLable;
-    private JLabel fromLabel;
-    private JLabel toLabel;
+
+    private JLabel effectiveDatesfromLabel;
+    private JLabel effectiveDatestoLabel;
     private JTextField effectiveFromTextField;
     private JTextField effectiveToTextField;
 
@@ -94,175 +96,178 @@ class BillingPanel extends JPanel {
 
         customer = securityService.getCustomer();
         sectionList = securityService.getBuildingSections();
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
-        setLayout(boxLayout);
+//        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+//        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+//        setLayout(boxLayout);
+
+        setLayout(new MigLayout("","Right"));
+        FlowLayout flowLayout = new FlowLayout(FlowLayout.RIGHT);
 
         serviceContractIdLabel = new JLabel("Service Contract Id");
-        serviceContractIdTextFiled = new JTextField();
+        serviceContractIdTextFiled = new JTextField(15);
         serviceContractIdTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p1 = new JPanel(flowLayout);
-        p1.add(serviceContractIdLabel);
-        p1.add(serviceContractIdTextFiled);
+  //      JPanel p1 = new JPanel(flowLayout);
+        add(serviceContractIdLabel,"span 2");
+        add(serviceContractIdTextFiled,"wrap");
 
         customerNameLabel = new JLabel("Customer Name");
-        customerNameTextFiled = new JTextField();
+        customerNameTextFiled = new JTextField(15);
         customerNameTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p2 = new JPanel(flowLayout);
-        p2.add(customerNameLabel);
-        p2.add(customerNameTextFiled);
+     //   JPanel p2 = new JPanel(flowLayout);
+        add(customerNameLabel,"span 2");
+        add(customerNameTextFiled,"wrap");
 
         customerAddressLabel = new JLabel("Property Address");
-        customerAddressTextFiled = new JTextField();
+        customerAddressTextFiled = new JTextField(15);
         customerAddressTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p3 = new JPanel(flowLayout);
-        p3.add(customerAddressLabel);
-        p3.add(customerAddressTextFiled);
+        //JPanel p3 = new JPanel(flowLayout);
+        add(customerAddressLabel,"span 2");
+        add(customerAddressTextFiled,"wrap");
 
         primaryContactLabel = new JLabel("Primary Contact Number");
-        primaryContactTextFiled = new JTextField();
+        primaryContactTextFiled = new JTextField(15);
         primaryContactTextFiled.setPreferredSize(new Dimension(100, 20));
         secondaryContactLabel = new JLabel("Secondary Contact Number");
-        secondaryContactTextFiled = new JTextField();
+        secondaryContactTextFiled = new JTextField(15);
         secondaryContactTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p4 = new JPanel(flowLayout);
-        p4.add(primaryContactLabel);
-        p4.add(primaryContactTextFiled);
-        p4.add(secondaryContactLabel);
-        p4.add(secondaryContactTextFiled);
+       // JPanel p4 = new JPanel(flowLayout);
+        add(primaryContactLabel,"span 2");
+        add(primaryContactTextFiled,"wrap");
+        add(secondaryContactLabel,"span 2");
+        add(secondaryContactTextFiled,"wrap");
 
 
         customerContactLabel = new JLabel("Contact Phone");
-        customerContactTextFiled = new JTextField();
+        customerContactTextFiled = new JTextField(15);
         customerContactTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p5 = new JPanel(flowLayout);
-        p5.add(customerContactLabel);
-        p5.add(customerContactTextFiled);
+        //JPanel p5 = new JPanel(flowLayout);
+        add(customerContactLabel,"span 2");
+        add(customerContactTextFiled,"wrap");
 
-        effectiveDatesLable = new JLabel("Date Coverage");
-        fromLabel = new JLabel("From");
-        toLabel = new JLabel("To");
-        effectiveFromTextField = new JTextField();
+
+        effectiveDatesfromLabel = new JLabel("Date Coverage From");
+        effectiveDatestoLabel = new JLabel("Date Coverage To");
+        effectiveFromTextField = new JTextField(15);
         effectiveFromTextField.setPreferredSize(new Dimension(100, 20));
-        effectiveToTextField = new JTextField();
+        effectiveToTextField = new JTextField(15);
         effectiveToTextField.setPreferredSize(new Dimension(100, 20));
-        JPanel p10 = new JPanel(flowLayout);
-        p10.add(effectiveDatesLable);
-        p10.add(fromLabel);
-        p10.add(effectiveFromTextField);
-        p10.add(toLabel);
-        p10.add(effectiveToTextField);
+      //  JPanel p10 = new JPanel(flowLayout);
+
+        add(effectiveDatesfromLabel,"span 2");
+        add(effectiveFromTextField,"wrap");
+        add(effectiveDatestoLabel,"span 2");
+        add(effectiveToTextField,"wrap");
 
 
         numberTempSensorsLabel = new JLabel("No. Of Temperature Sensors");
-        numberTempSensorsTextField = new JTextField();
+        numberTempSensorsTextField = new JTextField(15);
         numberTempSensorsTextField.setPreferredSize(new Dimension(100, 20));
-        JPanel p6 = new JPanel(flowLayout);
-        p6.add(numberTempSensorsLabel);
-        p6.add(numberTempSensorsTextField);
+        //JPanel p6 = new JPanel(flowLayout);
+        add(numberTempSensorsLabel,"span 2");
+        add(numberTempSensorsTextField,"wrap");
 
         perFeeTempSensorLabel = new JLabel("Fee Per Temperature Sensor");
-        perFeeTempSensorTextField = new JTextField();
+        perFeeTempSensorTextField = new JTextField(15);
         perFeeTempSensorTextField.setPreferredSize(new Dimension(100, 20));
         JPanel p11 = new JPanel(flowLayout);
-        p11.add(perFeeTempSensorLabel);
-        p11.add(perFeeTempSensorTextField);
+        p11.add(perFeeTempSensorLabel,"span 2");
+        p11.add(perFeeTempSensorTextField,"wrap");
 
         numberMotionSensorLabel = new JLabel("No. Of Motion Sensors");
-        numberMotionSensorTextField = new JTextField();
+        numberMotionSensorTextField = new JTextField(15);
         numberMotionSensorTextField.setPreferredSize(new Dimension(100, 20));
-        JPanel p7 = new JPanel(flowLayout);
-        p7.add(numberMotionSensorLabel);
-        p7.add(numberMotionSensorTextField);
+       // JPanel p7 = new JPanel(flowLayout);
+        add(numberMotionSensorLabel,"span 2");
+        add(numberMotionSensorTextField,"wrap");
 
         perFeeMotionSensorLabel = new JLabel("Fee Per Motion Sensor");
-        perFeeMotionSensorTextField = new JTextField();
+        perFeeMotionSensorTextField = new JTextField(15);
         perFeeMotionSensorTextField.setPreferredSize(new Dimension(100, 20));
-        JPanel p12 = new JPanel(flowLayout);
-        p12.add(perFeeMotionSensorLabel);
-        p12.add(perFeeMotionSensorTextField);
+       // JPanel p12 = new JPanel(flowLayout);
+        add(perFeeMotionSensorLabel,"span 2");
+        add(perFeeMotionSensorTextField,"wrap");
 
 
         initTempServiceFeeLabel = new JLabel("Initial Temperature Sensor Installation Charge");
-        initTempServiceFeeTextField = new JTextField();
+        initTempServiceFeeTextField = new JTextField(15);
         initTempServiceFeeTextField.setPreferredSize(new Dimension(100, 20));
-        JPanel p8 = new JPanel(flowLayout);
-        p8.add(initTempServiceFeeLabel);
-        p8.add(initTempServiceFeeTextField);
+       // JPanel p8 = new JPanel(flowLayout);
+        add(initTempServiceFeeLabel,"span 2");
+        add(initTempServiceFeeTextField,"wrap");
 
         initMotionServiceFeeLabel = new JLabel("Initial Motion Sensor Installation Charge");
-        initMotionServiceFeeTextField = new JTextField();
+        initMotionServiceFeeTextField = new JTextField(15);
         initMotionServiceFeeTextField.setPreferredSize(new Dimension(100, 20));
-        JPanel p9 = new JPanel(flowLayout);
-        p9.add(initMotionServiceFeeLabel);
-        p9.add(initMotionServiceFeeTextField);
+       // JPanel p9 = new JPanel(flowLayout);
+        add(initMotionServiceFeeLabel,"span 2");
+        add(initMotionServiceFeeTextField,"wrap");
 
         extraPerFeeTempLabel = new JLabel("Extra Temperature Service Fee Per Time");
-        extraPerFeeTempTextField = new JTextField();
+        extraPerFeeTempTextField = new JTextField(15);
         extraPerFeeTempTextField.setPreferredSize(new Dimension(100, 20));
 
         extraTempServiceCountLabel = new JLabel("Extra Temperature Service Number");
-        extraTempServiceCountTextField = new JTextField();
+        extraTempServiceCountTextField = new JTextField(15);
         extraTempServiceCountTextField.setPreferredSize(new Dimension(100, 20));
 
-        JPanel p13 = new JPanel(flowLayout);
-        p13.add(extraPerFeeTempLabel);
-        p13.add(extraPerFeeTempTextField);
-        p13.add(extraTempServiceCountLabel);
-        p13.add(extraTempServiceCountTextField);
+       // JPanel p13 = new JPanel(flowLayout);
+        add(extraPerFeeTempLabel,"span 2");
+        add(extraPerFeeTempTextField,"wrap");
+        add(extraTempServiceCountLabel,"span 2");
+        add(extraTempServiceCountTextField,"wrap");
 
         extraPerFeeMotionLabel = new JLabel("Extra Motion Service Fee Per Time");
-        extraPerFeeMotionTextField = new JTextField();
+        extraPerFeeMotionTextField = new JTextField(15);
         extraPerFeeMotionTextField.setPreferredSize(new Dimension(100, 20));
 
         extraMotionServiceCountLabel = new JLabel("Extra Motion Service Number");
-        extraMotionServiceCountTextField = new JTextField();
+        extraMotionServiceCountTextField = new JTextField(15);
         extraMotionServiceCountTextField.setPreferredSize(new Dimension(100, 20));
 
-        JPanel p14 = new JPanel(flowLayout);
-        p14.add(extraPerFeeMotionLabel);
-        p14.add(extraPerFeeMotionTextField);
-        p14.add(extraMotionServiceCountLabel);
-        p14.add(extraMotionServiceCountTextField);
+        //JPanel p14 = new JPanel(flowLayout);
+        add(extraPerFeeMotionLabel,"span 2");
+        add(extraPerFeeMotionTextField,"wrap");
+        add(extraMotionServiceCountLabel,"span 2");
+        add(extraMotionServiceCountTextField,"wrap");
 
         motionSensorTotalCostLabel = new JLabel("Total cost for motion sensor");
-        motionSensorTotalCostTextField = new JTextField();
+        motionSensorTotalCostTextField = new JTextField(15);
         motionSensorTotalCostTextField.setPreferredSize(new Dimension(100, 20));
 
         tempSensorTotalCostLabel = new JLabel("Total cost for temperature sensor");
-        tempSensorTotalCostTextField = new JTextField();
+        tempSensorTotalCostTextField = new JTextField(15);
         tempSensorTotalCostTextField.setPreferredSize(new Dimension(100, 20));
 
         totalCostLabel = new JLabel("Total Cost");
-        totalCostTextField = new JTextField();
+        totalCostTextField = new JTextField(15);
         totalCostTextField.setPreferredSize(new Dimension(100, 20));
 
-        JPanel p15 = new JPanel(flowLayout);
-        p15.add(motionSensorTotalCostLabel);
-        p15.add(motionSensorTotalCostTextField);
-        p15.add(tempSensorTotalCostLabel);
-        p15.add(tempSensorTotalCostTextField);
-        p15.add(totalCostLabel);
-        p15.add(totalCostTextField);
+        //JPanel p15 = new JPanel(flowLayout);
+        add(motionSensorTotalCostLabel,"span 2");
+        add(motionSensorTotalCostTextField,"wrap");
+        add(tempSensorTotalCostLabel,"span 2");
+        add(tempSensorTotalCostTextField,"wrap");
+        add(totalCostLabel,"span 2");
+        add(totalCostTextField,"wrap");
         generateBillButton = new JButton("GenerateBill");
 
 
-        add(p1);
-        add(p2);
-        add(p3);
-        add(p4);
-        add(p5);
-        add(p10);
-        add(p6);
-        add(p11);
-        add(p7);
-        add(p12);
-        add(p8);
-        add(p9);
-        add(p13);
-        add(p14);
-        add(p15);
-        add(generateBillButton);
+//        add(p1);
+//        add(p2);
+//        add(p3);
+//        add(p4);
+//        add(p5);
+//        add(p10);
+//        add(p6);
+//        add(p11);
+//        add(p7);
+//        add(p12);
+//        add(p8);
+//        add(p9);
+//        add(p13);
+//        add(p14);
+//        add(p15);
+        add(generateBillButton,"span 3 3");
 
         generateBillButton.addActionListener(e -> {
             motionSensorCount = countInstalledSensor(true);
