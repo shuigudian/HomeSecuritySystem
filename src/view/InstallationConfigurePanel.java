@@ -11,6 +11,8 @@ import java.util.List;
 
 class InstallationConfigurePanel extends JPanel {
     private static String[] COLUMN_NAMES = {"Section Id", "Section Name", "Motion", "Temperature"};
+    JTextField passwordTextField;
+    JLabel passwordLable;
 
     InstallationConfigurePanel() {
         SecurityService securityService = SecurityService.getInstance();
@@ -30,26 +32,50 @@ class InstallationConfigurePanel extends JPanel {
 
         JTable table = new JTable(tableModel);
         table.setBackground(Color.GRAY);
+        table.setRowHeight(40);
+        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         add(new JScrollPane(table));
+
+        JPanel panel = new JPanel();
+        add(panel);
+        passwordLable = new JLabel("Password");
+        passwordLable.setVisible(false);
+
+        passwordTextField = new JTextField();
+        passwordTextField.setPreferredSize(new Dimension(100,20));
+        passwordTextField.setVisible(false);
+        panel.add(passwordLable);
+        panel.add(passwordTextField);
 
         JButton actionButton = new JButton("Edit");
         actionButton.addActionListener(e -> {
             if (tableModel.isCellEditable()) {
-                actionButton.setText("Edit");
-                tableModel.setCellEditable(false);
+                if(SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())) {
+                    actionButton.setText("Edit");
+                    tableModel.setCellEditable(false);
 
-                for (int row = 0; row < rowCount; row++) {
-                    Section section = sectionList.get(row);
-                    section.setSensorInstalled(SensorType.MOTION, (Boolean) tableModel.getValueAt(row, 2));
-                    section.setSensorInstalled(SensorType.TEMPERATURE, (Boolean) tableModel.getValueAt(row, 3));
+                    for (int row = 0; row < rowCount; row++) {
+                        Section section = sectionList.get(row);
+                        section.setSensorInstalled(SensorType.MOTION, (Boolean) tableModel.getValueAt(row, 2));
+                        section.setSensorInstalled(SensorType.TEMPERATURE, (Boolean) tableModel.getValueAt(row, 3));
+                    }
+                    securityService.saveSensorConfig();
+                    passwordLable.setVisible(false);
+                    passwordTextField.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this,"Password is not correct, try again");
                 }
-                securityService.saveSensorConfig();
+
             } else {
                 actionButton.setText("Save");
                 tableModel.setCellEditable(true);
+                passwordLable.setVisible(true);
+                passwordTextField.setVisible(true);
             }
         });
-        add(actionButton);
+
+
+        panel.add(actionButton);
     }
 
     private static class CustomTableModel extends DefaultTableModel {

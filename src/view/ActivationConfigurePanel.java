@@ -7,6 +7,7 @@ import model.Section.SensorState;
 import model.Sensor.SensorType;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,12 @@ class ActivationConfigurePanel extends JPanel {
     private final List<TimePicker> toTimePickerList = new ArrayList<>();
 
     ActivationConfigurePanel(SensorType sensorType) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        setLayout(new GridLayout(0,1));
+        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEADING);
         SecurityService securityService = SecurityService.getInstance();
         sectionList = securityService.getSectionsWithSensorInstalled(sensorType);
         for (Section section : sectionList) {
-            JPanel rowPanel = new JPanel();
+            JPanel rowPanel = new JPanel(flowLayout);
 
             TimePicker fromTimePicker = new TimePicker();
             fromTimePicker.setTime(section.getSensorScheduledFromTime(sensorType));
