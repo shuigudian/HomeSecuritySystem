@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
+import net.miginfocom.layout.Grid;
+import net.miginfocom.swing.MigLayout;
 
 class ActivationConfigurePanel extends JPanel {
     private static String[] SENSOR_ACTIVATION_STATES = new String[]
@@ -24,12 +26,19 @@ class ActivationConfigurePanel extends JPanel {
     JLabel passwordLable;
 
     ActivationConfigurePanel(SensorType sensorType) {
-        setLayout(new GridLayout(0,1));
-        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEADING);
+        setLayout(new MigLayout("","grow"));
+       FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+
+
+//        setLayout(new GridLayout(2,2));
+//       FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
         SecurityService securityService = SecurityService.getInstance();
         sectionList = securityService.getSectionsWithSensorInstalled(sensorType);
         for (Section section : sectionList) {
-            JPanel rowPanel = new JPanel(flowLayout);
+
+//
+//         JPanel rowPanel = new JPanel();
+//           setLayout(new MigLayout("","grow"));
 
             TimePicker fromTimePicker = new TimePicker();
             fromTimePicker.setTime(section.getSensorScheduledFromTime(sensorType));
@@ -47,8 +56,12 @@ class ActivationConfigurePanel extends JPanel {
             JComboBox<String> sensorActivationStateCombobox = new JComboBox<>(SENSOR_ACTIVATION_STATES);
             sensorActivationStateComboboxList.add(sensorActivationStateCombobox);
 
-            rowPanel.add(new JLabel(section.getId()));
-            rowPanel.add(new JLabel(section.getName()));
+//            rowPanel.add(new JLabel(section.getId()));
+//            rowPanel.add(new JLabel(section.getName()));
+
+//
+            add(new JLabel(section.getId())," wrap");
+            add(new JLabel(section.getName()),"wrap");
 
             switch (section.getSensorState(sensorType)) {
                 case ACTIVATED:
@@ -74,11 +87,16 @@ class ActivationConfigurePanel extends JPanel {
                 }
             });
 
-            rowPanel.add(sensorActivationStateCombobox);
-            rowPanel.add(timeSchedulingRow);
+//            rowPanel.add(sensorActivationStateCombobox);
+//            rowPanel.add(timeSchedulingRow);
 
-            rowPanel.setAlignmentX(LEFT_ALIGNMENT);
-            add(rowPanel);
+            add(sensorActivationStateCombobox,"wrap");
+            add(timeSchedulingRow,"width 80!,wrap");
+
+//          rowPanel.setAlignmentX(LEFT_ALIGNMENT);
+//          add(rowPanel);
+          setAlignmentX(LEFT_ALIGNMENT);
+
         }
 
 

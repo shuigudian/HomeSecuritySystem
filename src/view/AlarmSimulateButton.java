@@ -7,6 +7,8 @@ import model.Sensor.SensorType;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Date;
+import sun.audio.*;
+import java.io.*;
 
 class AlarmSimulateButton extends JButton {
 
@@ -26,6 +28,7 @@ class AlarmSimulateButton extends JButton {
 
         flashColor = eventType.equals(EventType.BREAK_IN) ? Color.ORANGE : Color.RED;
         flashTimer = new Timer(500, e -> {
+
             if(sectionButton.getBackground().equals(flashColor)) {
                 sectionButton.setBackground(Color.WHITE);
                 sectionButton.setBorderPainted(true);
@@ -39,11 +42,14 @@ class AlarmSimulateButton extends JButton {
         messageTimer = new Timer(1000, e -> {
             callCount++;
             if(eventType.equals(EventType.BREAK_IN)) {
+
+
                 String message = "Event Occurred :" + eventType + '\n' + "Emergency Number Calling Number : " + callCount + '\n'
                         + "The Monitoring service was notified!" + '\n' + "The alarm is ringing!" + '\n';
                 messageArea.setText(message);
             }
             if(eventType.equals(EventType.FIRE)){
+
                 String message =  "Event Occurred :" + eventType + '\n' + "Emergency Number Calling Number : " + callCount + '\n'
                         + "The sprinklers are sprinkling !" + '\n'+"The Monitoring service was notified!" + '\n'
                         + "The alarm is ringing!" + '\n';
@@ -58,6 +64,7 @@ class AlarmSimulateButton extends JButton {
                 triggerTime = new Date();
                 flashTimer.start();
                 messageTimer.start();
+                playmusic();
             } else {
                 JOptionPane.showMessageDialog(
                         SwingUtilities.getWindowAncestor(AlarmSimulateButton.this),
@@ -66,6 +73,31 @@ class AlarmSimulateButton extends JButton {
             }
         });
     }
+     static void  playmusic() {
+         AudioPlayer MGP = AudioPlayer.player;
+         AudioStream BGM;
+         AudioData MD;
+         ContinuousAudioDataStream loop = null;
+         try {
+             BGM = new AudioStream(new FileInputStream("Fire_Alarm.wav"));
+             AudioPlayer.player.start(BGM);
+//             MD = BGM.getData();
+//             loop = new ContinuousAudioDataStream(MD);
+         }
+         catch (FileNotFoundException error) {
+             System.out.println(error.toString());
+
+         }
+         catch (IOException error ) {
+             System.out.println(error.toString());
+         }
+         MGP.start();
+
+     }
+
+
+
+
 
     void setSectionInfo(Section section, JButton sectionButton) {
         this.section = section;
@@ -87,5 +119,6 @@ class AlarmSimulateButton extends JButton {
         sectionButton.setBackground(Color.WHITE);
         sectionButton.setBorderPainted(true);
         messageArea.setText("");
+
     }
 }

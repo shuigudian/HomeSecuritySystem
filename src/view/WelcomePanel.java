@@ -35,13 +35,7 @@ class WelcomePanel extends Panel {
 
 
        setLayout(new GridLayout(0, 1));
-//       FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER);
-//       JPanel pane0 = new JPanel(null);
-//       JPanel panex = new JPanel(null);
-//        JPanel paney = new JPanel(null);
 
-
-    //    passwordTextField.setPreferredSize(new Dimension(100, 20));
 
         JLabel nameLabel = new JLabel("User Name:");
         customerNameTextFiled = new JTextField(20);
@@ -54,12 +48,9 @@ class WelcomePanel extends Panel {
         passwordTextField.setBounds(500,250,160,25);
 
 
-  //      customerNameTextFiled.setPreferredSize(new Dimension(100,20));
-
 
         JButton confirmPasswordButton = new JButton("Login");
-//        Font bigFont = new Font("serif",Font.BOLD,20);
-//        confirmPasswordButton.setFont(bigFont);
+
         confirmPasswordButton.setBounds(580,300,80,25);
 
 
@@ -89,8 +80,6 @@ class WelcomePanel extends Panel {
             System.exit(0);
        });
 
-
-
         add(login);
         login.add(nameLabel);
         login.add(customerNameTextFiled);
@@ -99,14 +88,9 @@ class WelcomePanel extends Panel {
         login.add(confirmPasswordButton);
         login.add(cancelButton,"wrap");
         login.add(closeButton);
-
     }
 
     private void createPanelForNewCustomer() {
-
-
-     // setLayout(new GridLayout(0, 1));
-
         setLayout(new MigLayout("","grow"));
         FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
@@ -116,64 +100,49 @@ class WelcomePanel extends Panel {
 //       JPanel p1 = new JPanel(flowLayout);
         add(customerNameLabel);
         add(customerNameTextFiled,"wrap");
-  //      add(p1,"wrap");
-
         JLabel customerAddressLabel = new JLabel("Your Address");
         customerAddressTextFiled = new JTextField();
         customerAddressTextFiled.setPreferredSize(new Dimension(100, 20));
-  //      JPanel p2 = new JPanel(flowLayout);
+
         add(customerAddressLabel);
         add(customerAddressTextFiled,"wrap");
-  //      add(p2,"wrap");
-
         JLabel primaryContactLabel = new JLabel("Primary Contact Number");
         primaryContactTextFiled = new JTextField();
         primaryContactTextFiled.setPreferredSize(new Dimension(100, 20));
-     //   JPanel p3 = new JPanel(flowLayout);
         add(primaryContactLabel);
         add(primaryContactTextFiled,"wrap");
-   //     add(p3,"wrap");
 
         JLabel secondaryContactLabel = new JLabel("Secondary Contact Number");
         secondaryContactTextFiled = new JTextField();
         secondaryContactTextFiled.setPreferredSize(new Dimension(100, 20));
-   //     JPanel p4 = new JPanel(flowLayout);
+
         add(secondaryContactLabel);
         add(secondaryContactTextFiled,"wrap");
-   //     add(p4,"wrap");
 
         JLabel customerContactLabel = new JLabel("Your contact number");
         customerContactTextFiled = new JTextField();
         customerContactTextFiled.setPreferredSize(new Dimension(100, 20));
-  //      JPanel p5 = new JPanel(flowLayout);
+
        add(customerContactLabel);
         add(customerContactTextFiled,"wrap");
-     //   add(p5,"wrap");
 
         JLabel startDateLabel = new JLabel("Coverage From");
         DatePicker startDatePicker = new DatePicker();
         JLabel endDateLabel = new JLabel("Coverage To");
         DatePicker endDatePicker = new DatePicker();
-  //      JPanel p7 = new JPanel(flowLayout);
         add(startDateLabel);
         add(startDatePicker,"wrap");
         add(endDateLabel);
         add(endDatePicker,"wrap");
-   //     add(p7,"wrap");
-
 
         JLabel setPasswordLabel = new JLabel("Set your password");
         setPasswordTextFiled = new JTextField();
         setPasswordTextFiled.setPreferredSize(new Dimension(100, 20));
-  //      JPanel p6 = new JPanel(flowLayout);
         add(setPasswordLabel);
         add(setPasswordTextFiled,"wrap");
-   //     add(p6,"wrap");
-
 
         JButton saveInfoButton = new JButton("Save Information");
         add(saveInfoButton,"span 5 2");
-
 
         saveInfoButton.addActionListener(e -> {
             String name = customerNameTextFiled.getText();
