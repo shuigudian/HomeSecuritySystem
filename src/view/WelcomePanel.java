@@ -58,9 +58,10 @@ class WelcomePanel extends Panel {
 
 
         JButton confirmPasswordButton = new JButton("Login");
-        Font bigFont = new Font("serif",Font.BOLD,20);
-        confirmPasswordButton.setFont(bigFont);
-        confirmPasswordButton.setBounds(518,300,120,25);
+//        Font bigFont = new Font("serif",Font.BOLD,20);
+//        confirmPasswordButton.setFont(bigFont);
+        confirmPasswordButton.setBounds(580,300,80,25);
+
 
         confirmPasswordButton.addActionListener(e -> {
             if (SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())
@@ -68,17 +69,36 @@ class WelcomePanel extends Panel {
                 HomeTabbedPane pane = (HomeTabbedPane) getParent();
                 pane.switchToContentPanel();
             }
+            else {
+                JOptionPane.showMessageDialog(this,"Password or Username is not correct, try again");
+
+            }
+        });
+       JButton cancelButton = new JButton("Cancel");
+       cancelButton.setBounds(490,300,80,25);
+
+        cancelButton.addActionListener(e -> {
+
+            passwordTextField.setText("");
+            customerNameTextFiled.setText("");
         });
 
-        add(login);
-//        add(panex);
-//        add(paney);
+        JButton closeButton = new JButton("Close");
+        closeButton.setBounds(495,380,80,25);
+        closeButton.addActionListener(e -> {
+            System.exit(0);
+       });
 
+
+
+        add(login);
         login.add(nameLabel);
         login.add(customerNameTextFiled);
         login.add(passwordLabel);
         login.add(passwordTextField);
         login.add(confirmPasswordButton);
+        login.add(cancelButton,"wrap");
+        login.add(closeButton);
 
     }
 
@@ -152,7 +172,7 @@ class WelcomePanel extends Panel {
 
 
         JButton saveInfoButton = new JButton("Save Information");
-        add(saveInfoButton,"span 2 2");
+        add(saveInfoButton,"span 5 2");
 
 
         saveInfoButton.addActionListener(e -> {
