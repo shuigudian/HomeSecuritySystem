@@ -6,6 +6,8 @@ import controller.SecurityService;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+import net.miginfocom.layout.Grid;
+import net.miginfocom.swing.MigLayout;
 
 class WelcomePanel extends Panel {
 
@@ -83,76 +85,73 @@ class WelcomePanel extends Panel {
     private void createPanelForNewCustomer() {
 
 
-      setLayout(new GridLayout(0, 1));
+     // setLayout(new GridLayout(0, 1));
+        setLayout(new MigLayout("","right"));
         FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
         JLabel customerNameLabel = new JLabel("Your Name");
         customerNameTextFiled = new JTextField();
         customerNameTextFiled.setPreferredSize(new Dimension(100, 20));
-       JPanel p1 = new JPanel(flowLayout);
-        p1.add(customerNameLabel);
-        p1.add(customerNameTextFiled);
-        add(p1);
+//       JPanel p1 = new JPanel(flowLayout);
+        add(customerNameLabel);
+        add(customerNameTextFiled,"wrap");
+  //      add(p1,"wrap");
 
         JLabel customerAddressLabel = new JLabel("Your Address");
         customerAddressTextFiled = new JTextField();
         customerAddressTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p2 = new JPanel(flowLayout);
-        p2.add(customerAddressLabel);
-        p2.add(customerAddressTextFiled);
-        add(p2);
+  //      JPanel p2 = new JPanel(flowLayout);
+        add(customerAddressLabel);
+        add(customerAddressTextFiled,"wrap");
+  //      add(p2,"wrap");
 
         JLabel primaryContactLabel = new JLabel("Primary Contact Number");
         primaryContactTextFiled = new JTextField();
         primaryContactTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p3 = new JPanel(flowLayout);
-        p3.add(primaryContactLabel);
-        p3.add(primaryContactTextFiled);
-        add(p3);
+     //   JPanel p3 = new JPanel(flowLayout);
+        add(primaryContactLabel);
+        add(primaryContactTextFiled,"wrap");
+   //     add(p3,"wrap");
 
         JLabel secondaryContactLabel = new JLabel("Secondary Contact Number");
         secondaryContactTextFiled = new JTextField();
         secondaryContactTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p4 = new JPanel(flowLayout);
-        p4.add(secondaryContactLabel);
-        p4.add(secondaryContactTextFiled);
-        add(p4);
+   //     JPanel p4 = new JPanel(flowLayout);
+        add(secondaryContactLabel);
+        add(secondaryContactTextFiled,"wrap");
+   //     add(p4,"wrap");
 
         JLabel customerContactLabel = new JLabel("Your contact number");
         customerContactTextFiled = new JTextField();
         customerContactTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p5 = new JPanel(flowLayout);
-        p5.add(customerContactLabel);
-        p5.add(customerContactTextFiled);
-        add(p5);
+  //      JPanel p5 = new JPanel(flowLayout);
+       add(customerContactLabel);
+        add(customerContactTextFiled,"wrap");
+     //   add(p5,"wrap");
 
         JLabel startDateLabel = new JLabel("Coverage From");
         DatePicker startDatePicker = new DatePicker();
         JLabel endDateLabel = new JLabel("To");
         DatePicker endDatePicker = new DatePicker();
-        JPanel p7 = new JPanel(flowLayout);
-        p7.add(startDateLabel);
-        p7.add(startDatePicker);
-        p7.add(endDateLabel);
-        p7.add(endDatePicker);
-        add(p7);
+  //      JPanel p7 = new JPanel(flowLayout);
+        add(startDateLabel);
+        add(startDatePicker);
+        add(endDateLabel);
+        add(endDatePicker,"wrap");
+   //     add(p7,"wrap");
 
 
         JLabel setPasswordLabel = new JLabel("Set your password");
         setPasswordTextFiled = new JTextField();
         setPasswordTextFiled.setPreferredSize(new Dimension(100, 20));
-        JPanel p6 = new JPanel(flowLayout);
-        p6.add(setPasswordLabel);
-        p6.add(setPasswordTextFiled);
-        add(p6);
+  //      JPanel p6 = new JPanel(flowLayout);
+        add(setPasswordLabel);
+        add(setPasswordTextFiled,"wrap");
+   //     add(p6,"wrap");
 
-        JPanel psave = new JPanel(flowLayout);
+
         JButton saveInfoButton = new JButton("Save Information");
-        psave.add(saveInfoButton);
-        add(psave);
-
-
-
+        add(saveInfoButton,"span 2 2");
 
 
         saveInfoButton.addActionListener(e -> {
