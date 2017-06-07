@@ -20,6 +20,8 @@ class ActivationConfigurePanel extends JPanel {
     private final List<JComboBox> sensorActivationStateComboboxList = new ArrayList<>();
     private final List<TimePicker> fromTimePickerList = new ArrayList<>();
     private final List<TimePicker> toTimePickerList = new ArrayList<>();
+    JTextField passwordTextField;
+    JLabel passwordLable;
 
     ActivationConfigurePanel(SensorType sensorType) {
         setLayout(new GridLayout(0,1));
@@ -79,30 +81,81 @@ class ActivationConfigurePanel extends JPanel {
             add(rowPanel);
         }
 
+
+        JPanel panel = new JPanel();
+        add(panel);
         setEditable(false);
-        JButton saveButton = new JButton("Edit");
-        saveButton.addActionListener(e -> {
-            if (saveButton.getText().equals("Edit")) {
-                saveButton.setText("Save");
-                setEditable(true);
-            } else {
-                saveButton.setText("Edit");
-                setEditable(false);
-                for (int i = 0; i < sectionList.size(); i++) {
-                    Section section = sectionList.get(i);
-                    SensorState newSensorState =
-                            SensorState.valueOf((String) sensorActivationStateComboboxList.get(i).getSelectedItem());
-                    section.setSensorState(sensorType, newSensorState);
-                    if (newSensorState.equals(SensorState.SCHEDULED)) {
-                        section.setSensorScheduledFromTime(sensorType, fromTimePickerList.get(i).getTime());
-                        section.setSensorScheduledToTime(sensorType, toTimePickerList.get(i).getTime());
+        passwordLable = new JLabel("Password");
+        passwordLable.setVisible(false);
+
+        passwordTextField = new JTextField();
+        passwordTextField.setPreferredSize(new Dimension(100,20));
+        passwordTextField.setVisible(false);
+        panel.add(passwordLable);
+        panel.add(passwordTextField);
+
+        JButton actionButton = new JButton("Edit");
+        actionButton.addActionListener(e -> {
+            if (actionButton.getText().equals("Save")) {
+                if(SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())) {
+                    actionButton.setText("Edit");
+                    setEditable(false);
+
+
+                    for (int i = 0; i < sectionList.size(); i++) {
+                        Section section = sectionList.get(i);
+                        SensorState newSensorState =
+                                SensorState.valueOf((String) sensorActivationStateComboboxList.get(i).getSelectedItem());
+                        section.setSensorState(sensorType, newSensorState);
+                        if (newSensorState.equals(SensorState.SCHEDULED)) {
+                            section.setSensorScheduledFromTime(sensorType, fromTimePickerList.get(i).getTime());
+                            section.setSensorScheduledToTime(sensorType, toTimePickerList.get(i).getTime());
+                        }
                     }
+
+                    securityService.saveSensorConfig();
+
+                    passwordLable.setVisible(false);
+                    passwordTextField.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this,"Password is not correct, try again");
                 }
 
-                securityService.saveSensorConfig();
+            } else {
+                setEditable(true);
+                actionButton.setText("Save");
+                passwordLable.setVisible(true);
+                passwordTextField.setVisible(true);
             }
         });
-        add(saveButton);
+
+
+      panel.add(actionButton);
+
+//        setEditable(false);
+//        JButton saveButton = new JButton("Edit");
+//        saveButton.addActionListener(e -> {
+//            if (saveButton.getText().equals("Edit")) {
+//                saveButton.setText("Save");
+//                setEditable(true);
+//            } else {
+//                saveButton.setText("Edit");
+//                setEditable(false);
+//                for (int i = 0; i < sectionList.size(); i++) {
+//                    Section section = sectionList.get(i);
+//                    SensorState newSensorState =
+//                            SensorState.valueOf((String) sensorActivationStateComboboxList.get(i).getSelectedItem());
+//                    section.setSensorState(sensorType, newSensorState);
+//                    if (newSensorState.equals(SensorState.SCHEDULED)) {
+//                        section.setSensorScheduledFromTime(sensorType, fromTimePickerList.get(i).getTime());
+//                        section.setSensorScheduledToTime(sensorType, toTimePickerList.get(i).getTime());
+//                    }
+//                }
+//
+//                securityService.saveSensorConfig();
+//            }
+//        });
+//        add(saveButton);
     }
 
     private void setEditable(boolean editable) {
