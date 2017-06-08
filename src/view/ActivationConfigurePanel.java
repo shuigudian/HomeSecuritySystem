@@ -11,11 +11,19 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
 import javax.*;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
 
 class ActivationConfigurePanel extends JPanel {
     private static String[] SENSOR_ACTIVATION_STATES = new String[]
@@ -41,14 +49,26 @@ class ActivationConfigurePanel extends JPanel {
         sectionList = securityService.getSectionsWithSensorInstalled(sensorType);
         for (Section section : sectionList) {
            // JPanel a  = new JPanel();
+            String a;
+            int ID = Integer.parseInt(section.getId());
 
-            JPanel rowPanel = new JPanel();
+            if(ID == 4){
+                a = "Kitchen.jpg";
+            }
+            else if(ID == 5){
+                a = "Bathroom.jpg";
+            }
+            else if(ID == 6){
+                a = "Living_Room.jpg";
+            }
+            else a ="Bedroom.jpg";
 
+            JPanel rowPanel = new ImagePanel(a);
           rowPanel.setLayout(new MigLayout("","Center","Center"));
           rowPanel.setBorder(new TitledBorder(section.getName()));
-          rowPanel.setBorder(BorderFactory.createEtchedBorder(Color.blue,Color.yellow));
-          rowPanel.setBackground(Color.WHITE);
+          rowPanel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK,Color.yellow));
 
+ //         rowPanel.setBackground(Color.WHITE);
 
             TimePicker fromTimePicker = new TimePicker();
             fromTimePicker.setTime(section.getSensorScheduledFromTime(sensorType));
@@ -167,4 +187,40 @@ class ActivationConfigurePanel extends JPanel {
             timePicker.setEnabled(editable);
         }
     }
+}
+
+class ImagePanel extends JPanel{
+
+    private BufferedImage image;
+
+
+    public ImagePanel(String a) {
+        try {
+            image = ImageIO.read(new File(a));
+        } catch (IOException ex) {
+            // handle exception...
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g.drawImage(scale(image,image.getType(),getWidth(),getHeight(),image.getWidth(),image.getHeight()),
+                0, 0, this); // see javadoc for more info on the parameters
+
+
+    }
+
+    public static BufferedImage scale(BufferedImage sbi, int imageType, int dWidth, int dHeight, double fWidth, double fHeight) {
+        BufferedImage dbi = null;
+        if(sbi != null) {
+            dbi = new BufferedImage(dWidth, dHeight, imageType);
+            Graphics2D g = dbi.createGraphics();
+            AffineTransform at = AffineTransform.getScaleInstance(dWidth/fWidth,dHeight/fHeight);
+            g.drawRenderedImage(sbi, at);
+        }
+        return dbi;
+    }
+
 }
