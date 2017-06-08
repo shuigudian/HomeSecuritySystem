@@ -6,13 +6,16 @@ import model.Section;
 import model.Section.SensorState;
 import model.Sensor.SensorType;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
+import javax.*;
 
 class ActivationConfigurePanel extends JPanel {
     private static String[] SENSOR_ACTIVATION_STATES = new String[]
@@ -26,19 +29,26 @@ class ActivationConfigurePanel extends JPanel {
     JLabel passwordLable;
 
     ActivationConfigurePanel(SensorType sensorType) {
-        setLayout(new MigLayout("","grow"));
-       FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
-
-
-//        setLayout(new GridLayout(2,2));
+//        setLayout(new MigLayout("","grow"));
 //       FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+
+      //  JPanel panetotal = new JPanel();
+
+
+      setLayout(new GridLayout(3,2));
+      FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
         SecurityService securityService = SecurityService.getInstance();
         sectionList = securityService.getSectionsWithSensorInstalled(sensorType);
         for (Section section : sectionList) {
+           // JPanel a  = new JPanel();
 
-//
-//         JPanel rowPanel = new JPanel();
-//           setLayout(new MigLayout("","grow"));
+            JPanel rowPanel = new JPanel();
+
+          rowPanel.setLayout(new MigLayout("","Center","Center"));
+          rowPanel.setBorder(new TitledBorder(section.getName()));
+          rowPanel.setBorder(BorderFactory.createEtchedBorder(Color.blue,Color.yellow));
+          rowPanel.setBackground(Color.WHITE);
+
 
             TimePicker fromTimePicker = new TimePicker();
             fromTimePicker.setTime(section.getSensorScheduledFromTime(sensorType));
@@ -56,12 +66,7 @@ class ActivationConfigurePanel extends JPanel {
             JComboBox<String> sensorActivationStateCombobox = new JComboBox<>(SENSOR_ACTIVATION_STATES);
             sensorActivationStateComboboxList.add(sensorActivationStateCombobox);
 
-//            rowPanel.add(new JLabel(section.getId()));
-//            rowPanel.add(new JLabel(section.getName()));
-
-//
-            add(new JLabel(section.getId())," wrap");
-            add(new JLabel(section.getName()),"wrap");
+           rowPanel.add(new JLabel(section.getName()),"align right, growx,wrap");
 
             switch (section.getSensorState(sensorType)) {
                 case ACTIVATED:
@@ -87,18 +92,12 @@ class ActivationConfigurePanel extends JPanel {
                 }
             });
 
-//            rowPanel.add(sensorActivationStateCombobox);
-//            rowPanel.add(timeSchedulingRow);
+            rowPanel.add(sensorActivationStateCombobox,"wrap");
+            rowPanel.add(timeSchedulingRow,"wrap");
 
-            add(sensorActivationStateCombobox,"wrap");
-            add(timeSchedulingRow,"width 80!,wrap");
-
-//          rowPanel.setAlignmentX(LEFT_ALIGNMENT);
-//          add(rowPanel);
-          setAlignmentX(LEFT_ALIGNMENT);
-
+          rowPanel.setAlignmentX(LEFT_ALIGNMENT);
+          add(rowPanel);
         }
-
 
         JPanel panel = new JPanel();
         add(panel);
@@ -109,9 +108,11 @@ class ActivationConfigurePanel extends JPanel {
         passwordTextField = new JTextField();
         passwordTextField.setPreferredSize(new Dimension(80,25));
         passwordTextField.setVisible(false);
-        panel.add(passwordLable);
-        panel.add(passwordTextField);
 
+
+        JPanel pane2 = new JPanel();
+        pane2.add(passwordLable);
+        pane2.add(passwordTextField);
         JButton actionButton = new JButton("Edit");
         Font bigFont = new Font("serif",Font.BOLD,16);
         actionButton.setFont(bigFont);
@@ -150,10 +151,8 @@ class ActivationConfigurePanel extends JPanel {
             }
         });
 
-
-      panel.add(actionButton);
-
-
+      pane2.add(actionButton, BorderLayout.SOUTH);
+      add(pane2);
 
     }
 
