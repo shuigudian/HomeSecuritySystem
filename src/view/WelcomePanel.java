@@ -141,7 +141,7 @@ class WelcomePanel extends Panel {
         add(setPasswordLabel);
         add(setPasswordTextFiled,"wrap");
 
-        JButton saveInfoButton = new JButton("Save Information");
+        JButton saveInfoButton = new JButton("Register");
         add(saveInfoButton,"span 5 2");
 
         saveInfoButton.addActionListener(e -> {

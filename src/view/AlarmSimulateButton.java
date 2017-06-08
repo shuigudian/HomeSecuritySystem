@@ -21,10 +21,25 @@ class AlarmSimulateButton extends JButton {
     private JButton sectionButton;
     private Date triggerTime;
     private int callCount;
+    AudioStream BGM;
+
 
     AlarmSimulateButton(EventType eventType, JTextArea messageArea) {
         super(eventType.equals(EventType.BREAK_IN) ? "Simulate Break In" : "Simulate Fire");
         this.messageArea = messageArea;
+
+
+        try {
+            BGM = new AudioStream(new FileInputStream("Fire_Alarm.wav"));
+        }
+             catch (FileNotFoundException error) {
+                 System.out.println(error.toString());
+
+             }
+             catch (IOException error ) {
+                 System.out.println(error.toString());
+             }
+
 
         flashColor = eventType.equals(EventType.BREAK_IN) ? Color.ORANGE : Color.RED;
         flashTimer = new Timer(500, e -> {
@@ -64,7 +79,7 @@ class AlarmSimulateButton extends JButton {
                 triggerTime = new Date();
                 flashTimer.start();
                 messageTimer.start();
-                playmusic();
+                playmusic(true);
             } else {
                 JOptionPane.showMessageDialog(
                         SwingUtilities.getWindowAncestor(AlarmSimulateButton.this),
@@ -73,31 +88,22 @@ class AlarmSimulateButton extends JButton {
             }
         });
     }
-     static void  playmusic() {
-         AudioPlayer MGP = AudioPlayer.player;
-         AudioStream BGM;
-         AudioData MD;
-         ContinuousAudioDataStream loop = null;
-         try {
-             BGM = new AudioStream(new FileInputStream("Fire_Alarm.wav"));
-             AudioPlayer.player.start(BGM);
-//             MD = BGM.getData();
-//             loop = new ContinuousAudioDataStream(MD);
-         }
-         catch (FileNotFoundException error) {
-             System.out.println(error.toString());
+    
+      void  playmusic(boolean a) {
+
+         if(a){
+             System.out.println("ringing!");
+
+         AudioPlayer.player.start(BGM);
 
          }
-         catch (IOException error ) {
-             System.out.println(error.toString());
+         else{
+             System.out.println("stop!");
+             AudioPlayer.player.stop(BGM);
+
          }
-         MGP.start();
 
      }
-
-
-
-
 
     void setSectionInfo(Section section, JButton sectionButton) {
         this.section = section;
@@ -119,6 +125,7 @@ class AlarmSimulateButton extends JButton {
         sectionButton.setBackground(Color.WHITE);
         sectionButton.setBorderPainted(true);
         messageArea.setText("");
+        playmusic(false);
 
     }
 }
