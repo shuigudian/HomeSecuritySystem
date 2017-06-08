@@ -7,6 +7,10 @@ import model.Sensor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import static model.Event.EventType;
 import net.miginfocom.layout.Grid;
@@ -107,7 +111,7 @@ class BillingPanel extends JPanel {
         serviceContractIdTextFiled = new JTextField(15);
         serviceContractIdTextFiled.setPreferredSize(new Dimension(100, 20));
   //      JPanel p1 = new JPanel(flowLayout);
-        add(serviceContractIdLabel,"span 2");
+        add(serviceContractIdLabel,"span 2 ");
         add(serviceContractIdTextFiled,"wrap");
 
         customerNameLabel = new JLabel("Customer Name");
@@ -121,7 +125,7 @@ class BillingPanel extends JPanel {
         customerAddressTextFiled = new JTextField(15);
         customerAddressTextFiled.setPreferredSize(new Dimension(100, 20));
         //JPanel p3 = new JPanel(flowLayout);
-        add(customerAddressLabel,"span 2");
+        add(customerAddressLabel,"span 2 ");
         add(customerAddressTextFiled,"wrap");
 
         primaryContactLabel = new JLabel("Primary Contact Number");
@@ -133,7 +137,7 @@ class BillingPanel extends JPanel {
        // JPanel p4 = new JPanel(flowLayout);
         add(primaryContactLabel,"span 2");
         add(primaryContactTextFiled,"wrap");
-        add(secondaryContactLabel,"span 2");
+        add(secondaryContactLabel,"span 2 ");
         add(secondaryContactTextFiled,"wrap");
 
 
@@ -141,7 +145,7 @@ class BillingPanel extends JPanel {
         customerContactTextFiled = new JTextField(15);
         customerContactTextFiled.setPreferredSize(new Dimension(100, 20));
         //JPanel p5 = new JPanel(flowLayout);
-        add(customerContactLabel,"span 2");
+        add(customerContactLabel,"span 2 ");
         add(customerContactTextFiled,"wrap");
 
 
@@ -170,7 +174,7 @@ class BillingPanel extends JPanel {
         perFeeTempSensorTextField = new JTextField(15);
         perFeeTempSensorTextField.setPreferredSize(new Dimension(100, 20));
         JPanel p11 = new JPanel(flowLayout);
-        p11.add(perFeeTempSensorLabel,"span 2");
+        p11.add(perFeeTempSensorLabel,"span,grow");
         p11.add(perFeeTempSensorTextField,"wrap");
 
         numberMotionSensorLabel = new JLabel("No. Of Motion Sensors");
@@ -178,7 +182,7 @@ class BillingPanel extends JPanel {
         numberMotionSensorTextField.setPreferredSize(new Dimension(100, 20));
        // JPanel p7 = new JPanel(flowLayout);
         add(numberMotionSensorLabel,"span 2");
-        add(numberMotionSensorTextField,"wrap");
+        add(numberMotionSensorTextField,",wrap");
 
         perFeeMotionSensorLabel = new JLabel("Fee Per Motion Sensor");
         perFeeMotionSensorTextField = new JTextField(15);
@@ -193,13 +197,13 @@ class BillingPanel extends JPanel {
         initTempServiceFeeTextField.setPreferredSize(new Dimension(100, 20));
        // JPanel p8 = new JPanel(flowLayout);
         add(initTempServiceFeeLabel,"span 2");
-        add(initTempServiceFeeTextField,"wrap");
+        add(initTempServiceFeeTextField,"span ,wrap");
 
         initMotionServiceFeeLabel = new JLabel("Initial Motion Sensor Installation Charge");
         initMotionServiceFeeTextField = new JTextField(15);
         initMotionServiceFeeTextField.setPreferredSize(new Dimension(100, 20));
        // JPanel p9 = new JPanel(flowLayout);
-        add(initMotionServiceFeeLabel,"span 2");
+        add(initMotionServiceFeeLabel,"span2 ");
         add(initMotionServiceFeeTextField,"wrap");
 
         extraPerFeeTempLabel = new JLabel("Extra Temperature Service Fee Per Time");
@@ -211,9 +215,9 @@ class BillingPanel extends JPanel {
         extraTempServiceCountTextField.setPreferredSize(new Dimension(100, 20));
 
        // JPanel p13 = new JPanel(flowLayout);
-        add(extraPerFeeTempLabel,"span 2");
+        add(extraPerFeeTempLabel,"span2  ");
         add(extraPerFeeTempTextField,"wrap");
-        add(extraTempServiceCountLabel,"span 2");
+        add(extraTempServiceCountLabel,"span2 ");
         add(extraTempServiceCountTextField,"wrap");
 
         extraPerFeeMotionLabel = new JLabel("Extra Motion Service Fee Per Time");
@@ -225,7 +229,7 @@ class BillingPanel extends JPanel {
         extraMotionServiceCountTextField.setPreferredSize(new Dimension(100, 20));
 
         //JPanel p14 = new JPanel(flowLayout);
-        add(extraPerFeeMotionLabel,"span 2");
+        add(extraPerFeeMotionLabel,"span2 ");
         add(extraPerFeeMotionTextField,"wrap");
         add(extraMotionServiceCountLabel,"span 2");
         add(extraMotionServiceCountTextField,"wrap");
@@ -245,29 +249,13 @@ class BillingPanel extends JPanel {
         //JPanel p15 = new JPanel(flowLayout);
         add(motionSensorTotalCostLabel,"span 2");
         add(motionSensorTotalCostTextField,"wrap");
-        add(tempSensorTotalCostLabel,"span 2");
+        add(tempSensorTotalCostLabel,"span 2 ");
         add(tempSensorTotalCostTextField,"wrap");
         add(totalCostLabel,"span 2");
         add(totalCostTextField,"wrap");
         generateBillButton = new JButton("GenerateBill");
 
-
-//        add(p1);
-//        add(p2);
-//        add(p3);
-//        add(p4);
-//        add(p5);
-//        add(p10);
-//        add(p6);
-//        add(p11);
-//        add(p7);
-//        add(p12);
-//        add(p8);
-//        add(p9);
-//        add(p13);
-//        add(p14);
-//        add(p15);
-        add(generateBillButton,"span 3 3");
+        add(generateBillButton,"span 2 2,wrap");
 
         generateBillButton.addActionListener(e -> {
             motionSensorCount = countInstalledSensor(true);
@@ -277,6 +265,20 @@ class BillingPanel extends JPanel {
             fillInBillInformation();
 
         });
+        JButton eventReport = new JButton("Event Report");
+        eventReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ex) {
+                try{
+                    Desktop.getDesktop().edit(new File("event_records.txt"));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        add(eventReport);
 
     }
 

@@ -8,6 +8,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import net.miginfocom.layout.Grid;
+import net.miginfocom.swing.MigLayout;
+
 
 class InstallationConfigurePanel extends JPanel {
     private static String[] COLUMN_NAMES = {"Section Id", "Section Name", "Motion", "Temperature"};
@@ -27,20 +30,25 @@ class InstallationConfigurePanel extends JPanel {
             data[i][2] = section.isSensorInstalled(SensorType.MOTION);
             data[i][3] = section.isSensorInstalled(SensorType.TEMPERATURE);
         }
-
         CustomTableModel tableModel = new CustomTableModel(data, COLUMN_NAMES);
 
+        JPanel paneltable = new JPanel();
         JTable table = new JTable(tableModel);
-        table.setBackground(Color.GRAY);
-        table.setRowHeight(70);
+        table.setRowHeight(65);
+        table.setBorder( BorderFactory.createEmptyBorder() );
+
+        table.setRowMargin(1);
+        table.setShowVerticalLines(false);
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        add(new JScrollPane(table));
+        JScrollPane tableContainer = new JScrollPane(table);
+        tableContainer.setBorder(BorderFactory.createEmptyBorder());
+        paneltable.add(tableContainer);
+        add(paneltable);
 
         JPanel panel = new JPanel();
         add(panel);
         passwordLable = new JLabel("Password");
         passwordLable.setVisible(false);
-
 
         passwordTextField = new JTextField();
         passwordTextField.setPreferredSize(new Dimension(80,26));
@@ -76,10 +84,7 @@ class InstallationConfigurePanel extends JPanel {
                 passwordTextField.setVisible(true);
             }
         });
-
-
         panel.add(actionButton);
-
     }
 
     private static class CustomTableModel extends DefaultTableModel {
@@ -93,7 +98,6 @@ class InstallationConfigurePanel extends JPanel {
             this.editable = editable;
             this.fireTableDataChanged();
         }
-
         boolean isCellEditable() {
             return editable;
         }
