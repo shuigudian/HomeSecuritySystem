@@ -6,6 +6,8 @@ import controller.SecurityService;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -136,8 +138,10 @@ class WelcomePanel extends Panel {
         add(setPasswordLabel);
         add(setPasswordTextFiled,"wrap");
 
+        JButton cancelInfoButton = new JButton("Reset");
+        add(cancelInfoButton,"grow");
         JButton saveInfoButton = new JButton("Register");
-        add(saveInfoButton,"span 5 2");
+        add(saveInfoButton,"grow");
 
         saveInfoButton.addActionListener(e -> {
             String name = customerNameTextFiled.getText();
@@ -168,6 +172,17 @@ class WelcomePanel extends Panel {
             }
             else {
                 JOptionPane.showMessageDialog(null, "Please fill all information and then save");
+            }
+        });
+        cancelInfoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 customerNameTextFiled.setText("");
+                 customerAddressTextFiled.setText("");
+                 primaryContactTextFiled.setText("");
+                 secondaryContactTextFiled.setText("");
+                 customerContactTextFiled.setText("");
+                 setPasswordTextFiled.setText("");
             }
         });
     }
