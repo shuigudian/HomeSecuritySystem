@@ -68,13 +68,8 @@ class SimulatePanel extends JPanel {
         panel.add(createResponseButton());
 
         interactionPanel.add(panel);
-
         interactionPanel.add(displayTextArea);
-
         add(interactionPanel);
-
-
-
     }
 
     private JButton createResponseButton() {
@@ -96,7 +91,6 @@ class SimulatePanel extends JPanel {
             responseTextField.setText("");
         });
         return button;
-
     }
 
     private JComboBox<String> createSectionComboBox() {

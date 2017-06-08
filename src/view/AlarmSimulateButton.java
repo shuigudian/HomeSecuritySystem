@@ -6,6 +6,8 @@ import model.Sensor.SensorType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 import sun.audio.*;
 import java.io.*;
@@ -88,7 +90,7 @@ class AlarmSimulateButton extends JButton {
             }
         });
     }
-    
+
       void  playmusic(boolean a) {
 
          if(a){
@@ -126,6 +128,7 @@ class AlarmSimulateButton extends JButton {
         sectionButton.setBorderPainted(true);
         messageArea.setText("");
         playmusic(false);
+
 
     }
 }

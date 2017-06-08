@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class SecurityService {
     private static final String CUSTOMER_INFO_FILENAME = "customer_info";
     private static final String SECTION_CONFIG_FILENAME = "section_config";
-    private static final String EVENT_RECORDS_FILENAME = "event_records";
+    private static final String EVENT_RECORDS_FILENAME = "event_records.txt";
 
     private static SecurityService securityService = null;
 
@@ -138,7 +138,7 @@ public class SecurityService {
         eventList.add(event);
         try {
             FileWriter fileWriter = new FileWriter(EVENT_RECORDS_FILENAME, true);
-            fileWriter.append(event.toString()).append("\n");
+            fileWriter.append(event.toString()).append("\r\n");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -3,8 +3,13 @@ package view;
 import com.github.lgooddatepicker.components.DatePicker;
 import controller.SecurityService;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
@@ -29,13 +34,10 @@ class WelcomePanel extends Panel {
     }
 
     private void createPanelForExistingCustomer() {
-
         JPanel login = new JPanel();
+
         login.setLayout(null);
-
-
-       setLayout(new GridLayout(0, 1));
-
+        setLayout(new GridLayout(0,1));
 
         JLabel nameLabel = new JLabel("User Name:");
         customerNameTextFiled = new JTextField(20);
@@ -47,12 +49,8 @@ class WelcomePanel extends Panel {
         passwordTextField = new JTextField(20);
         passwordTextField.setBounds(500,250,160,25);
 
-
-
         JButton confirmPasswordButton = new JButton("Login");
-
         confirmPasswordButton.setBounds(580,300,80,25);
-
 
         confirmPasswordButton.addActionListener(e -> {
             if (SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())
@@ -62,14 +60,12 @@ class WelcomePanel extends Panel {
             }
             else {
                 JOptionPane.showMessageDialog(this,"Password or Username is not correct, try again");
-
             }
         });
        JButton cancelButton = new JButton("Cancel");
        cancelButton.setBounds(490,300,80,25);
 
         cancelButton.addActionListener(e -> {
-
             passwordTextField.setText("");
             customerNameTextFiled.setText("");
         });
@@ -92,7 +88,6 @@ class WelcomePanel extends Panel {
 
     private void createPanelForNewCustomer() {
         setLayout(new MigLayout("","grow"));
-        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
         JLabel customerNameLabel = new JLabel("Your Name");
         customerNameTextFiled = new JTextField();
@@ -184,3 +179,5 @@ class WelcomePanel extends Panel {
         return contractId;
     }
 }
+
+

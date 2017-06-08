@@ -37,18 +37,11 @@ class ActivationConfigurePanel extends JPanel {
     JLabel passwordLable;
 
     ActivationConfigurePanel(SensorType sensorType) {
-//        setLayout(new MigLayout("","grow"));
-//       FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
-
-      //  JPanel panetotal = new JPanel();
-
-
       setLayout(new GridLayout(3,2));
       FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
         SecurityService securityService = SecurityService.getInstance();
         sectionList = securityService.getSectionsWithSensorInstalled(sensorType);
         for (Section section : sectionList) {
-           // JPanel a  = new JPanel();
             String a;
             int ID = Integer.parseInt(section.getId());
 
@@ -67,8 +60,6 @@ class ActivationConfigurePanel extends JPanel {
           rowPanel.setLayout(new MigLayout("","Center","Center"));
           rowPanel.setBorder(new TitledBorder(section.getName()));
           rowPanel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK,Color.yellow));
-
- //         rowPanel.setBackground(Color.WHITE);
 
             TimePicker fromTimePicker = new TimePicker();
             fromTimePicker.setTime(section.getSensorScheduledFromTime(sensorType));
@@ -129,7 +120,6 @@ class ActivationConfigurePanel extends JPanel {
         passwordTextField.setPreferredSize(new Dimension(80,25));
         passwordTextField.setVisible(false);
 
-
         JPanel pane2 = new JPanel();
         pane2.add(passwordLable);
         pane2.add(passwordTextField);
@@ -142,8 +132,6 @@ class ActivationConfigurePanel extends JPanel {
                 if(SecurityService.getInstance().getCustomer().passwordMatched(passwordTextField.getText())) {
                     actionButton.setText("Edit");
                     setEditable(false);
-
-
                     for (int i = 0; i < sectionList.size(); i++) {
                         Section section = sectionList.get(i);
                         SensorState newSensorState =
@@ -154,7 +142,6 @@ class ActivationConfigurePanel extends JPanel {
                             section.setSensorScheduledToTime(sensorType, toTimePickerList.get(i).getTime());
                         }
                     }
-
                     securityService.saveSensorConfig();
 
                     passwordLable.setVisible(false);
@@ -170,10 +157,8 @@ class ActivationConfigurePanel extends JPanel {
                 passwordTextField.setVisible(true);
             }
         });
-
       pane2.add(actionButton, BorderLayout.SOUTH);
       add(pane2);
-
     }
 
     private void setEditable(boolean editable) {
@@ -193,7 +178,6 @@ class ImagePanel extends JPanel{
 
     private BufferedImage image;
 
-
     public ImagePanel(String a) {
         try {
             image = ImageIO.read(new File(a));
@@ -208,8 +192,6 @@ class ImagePanel extends JPanel{
 
         g.drawImage(scale(image,image.getType(),getWidth(),getHeight(),image.getWidth(),image.getHeight()),
                 0, 0, this); // see javadoc for more info on the parameters
-
-
     }
 
     public static BufferedImage scale(BufferedImage sbi, int imageType, int dWidth, int dHeight, double fWidth, double fHeight) {
