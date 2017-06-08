@@ -153,11 +153,15 @@ class WelcomePanel extends Panel {
             String password = setPasswordTextFiled.getText();
             String contractServiceId = generateContractServiceId();
 
+
             if((startDatePicker.toString().length()!= 0)&& (endDatePicker.toString().length()!=0)){
                 String startDate = startDatePicker.getDate().toString();
                 String endDate = endDatePicker.getDate().toString();
+                if((startDatePicker.getDate().isAfter(endDatePicker.getDate()))){
+                    JOptionPane.showMessageDialog(null, "Please fill the Date again!");
+                }
 
-                if (SecurityService.getInstance().createCustomer(
+                else if (SecurityService.getInstance().createCustomer(
                         name, address, primary, secondary, contact, password,contractServiceId,startDate, endDate)) {
                     JOptionPane.showMessageDialog(null, "Added Successfully");
                     HomeTabbedPane pane = (HomeTabbedPane) getParent();
