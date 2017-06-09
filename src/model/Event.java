@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Date;
-
+// This class is deigned to maintain Event information
 public class Event {
 
     public enum EventType {
@@ -15,7 +15,7 @@ public class Event {
     private final Date firstCallTime;
     private final int callCount;
     private final Date responseTime;
-
+// constructor of Event
     public Event(EventType eventType, String sectionId, Date triggerTime, Date firstCallTime, int callCount, Date responseTime) {
         this.eventType = eventType;
         this.sectionId = sectionId;
@@ -24,7 +24,7 @@ public class Event {
         this.callCount = callCount;
         this.responseTime = responseTime;
     }
-
+    // constructor of Event
     public Event(String eventString) {
         String[] eventStringList = eventString.split(",");
         this.eventType = EventType.valueOf(eventStringList[0]);
@@ -34,7 +34,7 @@ public class Event {
         this.callCount = Integer.valueOf(eventStringList[4]);
         this.responseTime = new Date(Long.valueOf(eventStringList[5]));
     }
-
+// get Event Type
     public EventType getEventType() {
         return eventType;
     }

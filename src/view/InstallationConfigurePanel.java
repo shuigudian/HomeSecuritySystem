@@ -11,12 +11,12 @@ import java.util.List;
 import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
 
-
+//InstallationConfigurePanel class is designed for installing sensors
 class InstallationConfigurePanel extends JPanel {
     private static String[] COLUMN_NAMES = {"Section Id", "Section Name", "Motion", "Temperature"};
     JTextField passwordTextField;
     JLabel passwordLable;
-
+//constructor of InstallationConfigurePanel
     InstallationConfigurePanel() {
         SecurityService securityService = SecurityService.getInstance();
         List<Section> sectionList = securityService.getBuildingSections();
@@ -87,6 +87,7 @@ class InstallationConfigurePanel extends JPanel {
         panel.add(actionButton);
     }
 
+    // CustomTableModel class is to set cell editable or not
     private static class CustomTableModel extends DefaultTableModel {
         private boolean editable = false;
 

@@ -1,5 +1,5 @@
 package model;
-
+// this class is designed to set and get Customer information
 public class Customer {
     private final String name;
     private final String address;

@@ -12,6 +12,7 @@ import java.util.Date;
 import sun.audio.*;
 import java.io.*;
 
+//AlarmSimulateButton class is set for break in simulation and fire simulation
 class AlarmSimulateButton extends JButton {
 
     private final JTextArea messageArea;
@@ -90,7 +91,7 @@ class AlarmSimulateButton extends JButton {
             }
         });
     }
-
+// play the alarm when  a event happened
       void  playmusic(boolean a) {
 
          if(a){
@@ -106,7 +107,7 @@ class AlarmSimulateButton extends JButton {
          }
 
      }
-
+// set Section information
     void setSectionInfo(Section section, JButton sectionButton) {
         this.section = section;
         this.sectionButton = sectionButton;
@@ -119,7 +120,7 @@ class AlarmSimulateButton extends JButton {
     int getCallCount() {
         return callCount;
     }
-
+// reset function is for turning off alarming
     void reset() {
         callCount = 0;
         flashTimer.stop();

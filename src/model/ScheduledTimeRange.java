@@ -1,7 +1,7 @@
 package model;
 
 import java.time.LocalTime;
-
+// this class is designed to set schedule time range
 public class ScheduledTimeRange {
     private static final LocalTime DEFAULT_SCHEDULED_TIME = LocalTime.ofSecondOfDay(0);
 

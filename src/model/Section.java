@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
+// this class is designed to represent section configure information
 public class Section {
 
     public enum SensorState {
@@ -32,15 +33,15 @@ public class Section {
         scheduledTimeRangeMap.put(SensorType.TEMPERATURE,
                 new ScheduledTimeRange(Integer.valueOf(sectionStateArray[6]), Integer.valueOf(sectionStateArray[7])));
     }
-
+// get Sensor State
     public SensorState getSensorState(SensorType sensorType) {
         return sensorStateMap.get(sensorType);
     }
-
+//set Sensor State
     public void setSensorState(SensorType sensorType, SensorState sensorState) {
         sensorStateMap.put(sensorType, sensorState);
     }
-
+    //get Sensor Scheduled From Time
     public LocalTime getSensorScheduledFromTime(SensorType sensorType) {
         return scheduledTimeRangeMap.get(sensorType).getFrom();
     }
@@ -56,7 +57,7 @@ public class Section {
     public void setSensorScheduledToTime(SensorType sensorType, LocalTime sensorScheduledToTime) {
         scheduledTimeRangeMap.get(sensorType).setTo(sensorScheduledToTime);
     }
-
+// ensure that the sensor is installed or not
     public boolean isSensorInstalled(SensorType sensorType) {
         return !sensorStateMap.get(sensorType).equals(SensorState.UNINSTALLED);
     }
@@ -64,7 +65,7 @@ public class Section {
     public void setSensorInstalled(SensorType sensorType, boolean installed) {
         sensorStateMap.put(sensorType, installed ? SensorState.ACTIVATED : SensorState.UNINSTALLED);
     }
-
+// to check that sensor is active or not
     public boolean isSensorActive(SensorType sensorType) {
         switch (sensorStateMap.get(sensorType)) {
             case ACTIVATED:

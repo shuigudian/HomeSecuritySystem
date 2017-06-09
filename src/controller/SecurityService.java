@@ -15,13 +15,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+//This class is designed to maintain model information
 public class SecurityService {
+    // create custom_info file
     private static final String CUSTOMER_INFO_FILENAME = "customer_info";
+    //create section_config file
     private static final String SECTION_CONFIG_FILENAME = "section_config";
+    //create event_records file
     private static final String EVENT_RECORDS_FILENAME = "event_records.txt";
 
     private static SecurityService securityService = null;
-
+   // get Instance of SecurityService
     public synchronized static SecurityService getInstance() {
         if (securityService == null) {
             securityService = new SecurityService();
@@ -36,7 +40,7 @@ public class SecurityService {
 
     private SecurityService() {
     }
-
+// initialize files
     private void init() {
         try {
             Scanner scanner = new Scanner(new File(SECTION_CONFIG_FILENAME));
@@ -68,7 +72,7 @@ public class SecurityService {
             e.printStackTrace();
         }
     }
-
+// save the configuration of Sensors
     public void saveSensorConfig() {
         try {
             FileWriter fileWriter = new FileWriter(SECTION_CONFIG_FILENAME);
@@ -80,11 +84,11 @@ public class SecurityService {
             e.printStackTrace();
         }
     }
-
+// get building Sections
     public List<Section> getBuildingSections() {
         return buildingSectionList;
     }
-
+//get Sections With Installed Sensor
     public List<Section> getSectionsWithSensorInstalled(Sensor.SensorType sensorType) {
         List<Section> installedSections = new ArrayList<>();
         for (Section section : buildingSectionList) {
@@ -94,7 +98,7 @@ public class SecurityService {
         }
         return installedSections;
     }
-
+// get Event Count
     public int getEventCount(EventType eventType) {
         int count = 0;
         for (Event event : eventList) {
@@ -112,7 +116,7 @@ public class SecurityService {
     public Customer getCustomer() {
         return customer;
     }
-
+// Create a new Customer information
     public boolean createCustomer(String name, String address, String primaryNumber, String secondaryNumber,
                                   String contactNumber, String password, String contractServiceId,String startDate, String endDate) {
         if (name.isEmpty() || address.isEmpty() || primaryNumber.isEmpty() || secondaryNumber.isEmpty()
@@ -131,7 +135,7 @@ public class SecurityService {
             return false;
         }
     }
-
+// record all information for event
     public void recordEvent(EventType eventType, String sectionId, Date triggerTime,
                             Date firstCallTime, int callCount, Date responseTime) {
         Event event = new Event(eventType, sectionId, triggerTime, firstCallTime, callCount, responseTime);

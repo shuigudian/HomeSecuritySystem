@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+// SimulatePanel class is designed for simulating break in  event and fire event
 class SimulatePanel extends JPanel {
     private AlarmSimulateButton fireSimulateButton;
     private AlarmSimulateButton breakInSimulateButton;
@@ -26,7 +26,7 @@ class SimulatePanel extends JPanel {
     private final List<Section> buildingSectionList;
 
     private Event.EventType eventType;
-
+// constructor of SimulatePanel
     SimulatePanel() {
         setLayout(new GridLayout(2,1));
 
@@ -71,7 +71,7 @@ class SimulatePanel extends JPanel {
         interactionPanel.add(displayTextArea);
         add(interactionPanel);
     }
-
+//create Response Button
     private JButton createResponseButton() {
         JButton button = new JButton("Confirm Code");
         button.addActionListener(e -> {
@@ -92,7 +92,7 @@ class SimulatePanel extends JPanel {
         });
         return button;
     }
-
+// create building SectionList ComboBox
     private JComboBox<String> createSectionComboBox() {
         int size = buildingSectionList.size();
         String[] sectionNames = new String[size];
@@ -107,7 +107,7 @@ class SimulatePanel extends JPanel {
         });
         return sectionComboBox;
     }
-
+//attach Section Info To SimulateButton
     private void attachSectionInfoToSimulateButton() {
         int index = sectionComboBox.getSelectedIndex();
         Section section = buildingSectionList.get(index);
@@ -115,7 +115,7 @@ class SimulatePanel extends JPanel {
         breakInSimulateButton.setSectionInfo(section, selectedSectionButton);
         fireSimulateButton.setSectionInfo(section, selectedSectionButton);
     }
-
+// get Selected Section
     private Section getSelectedSection() {
         int index = sectionComboBox.getSelectedIndex();
         return buildingSectionList.get(index);

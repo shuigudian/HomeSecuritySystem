@@ -4,6 +4,7 @@ import model.Sensor;
 
 import javax.swing.*;
 
+// HomeTabbedPane class is collections of all panels
 public class HomeTabbedPane extends JTabbedPane {
 
     public HomeTabbedPane() {

@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 
+// this class is to set the state of sensor in sections
 class ActivationConfigurePanel extends JPanel {
     private static String[] SENSOR_ACTIVATION_STATES = new String[]
             { SensorState.ACTIVATED.name(), SensorState.DEACTIVATED.name(), SensorState.SCHEDULED.name()};
@@ -133,8 +134,7 @@ class ActivationConfigurePanel extends JPanel {
                     actionButton.setText("Edit");
                     setEditable(false);
                     for (int i = 0; i < sectionList.size(); i++) {
-                        Section section = sectionList.get(i);
-                        SensorState newSensorState =
+                        Section section = sectionList.get(i);                       SensorState newSensorState =
                                 SensorState.valueOf((String) sensorActivationStateComboboxList.get(i).getSelectedItem());
                         section.setSensorState(sensorType, newSensorState);
                         if (newSensorState.equals(SensorState.SCHEDULED)) {
@@ -161,6 +161,7 @@ class ActivationConfigurePanel extends JPanel {
       add(pane2);
     }
 
+    // set the sensor state Conbobox to be editable
     private void setEditable(boolean editable) {
         for (JComboBox sensorStateCombobox : sensorActivationStateComboboxList) {
             sensorStateCombobox.setEnabled(editable);
@@ -174,6 +175,7 @@ class ActivationConfigurePanel extends JPanel {
     }
 }
 
+//  ImagePanel class can draw background for the section panels
 class ImagePanel extends JPanel{
 
     private BufferedImage image;

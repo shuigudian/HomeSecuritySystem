@@ -16,6 +16,7 @@ import java.util.Random;
 import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
 
+// WelcomePanel class is for customer to register  and login in the system
 class WelcomePanel extends Panel {
 
     private JTextField customerNameTextFiled;
@@ -26,7 +27,7 @@ class WelcomePanel extends Panel {
     private JTextField setPasswordTextFiled;
     private JTextField passwordTextField;
 
-
+// constructor of WelcomePanel
     WelcomePanel() {
         if (SecurityService.getInstance().customerExists()) {
             createPanelForExistingCustomer();
@@ -34,7 +35,7 @@ class WelcomePanel extends Panel {
             createPanelForNewCustomer();
         }
     }
-
+//create Panel For Existing Customer
     private void createPanelForExistingCustomer() {
         JPanel login = new JPanel();
 
@@ -87,14 +88,14 @@ class WelcomePanel extends Panel {
         login.add(cancelButton,"wrap");
         login.add(closeButton);
     }
-
+//create Panel For New Customer
     private void createPanelForNewCustomer() {
         setLayout(new MigLayout("","grow"));
 
         JLabel customerNameLabel = new JLabel("Your Name");
         customerNameTextFiled = new JTextField();
         customerNameTextFiled.setPreferredSize(new Dimension(100, 20));
-//       JPanel p1 = new JPanel(flowLayout);
+
         add(customerNameLabel);
         add(customerNameTextFiled,"wrap");
         JLabel customerAddressLabel = new JLabel("Your Address");
@@ -152,7 +153,7 @@ class WelcomePanel extends Panel {
             String password = setPasswordTextFiled.getText();
             String contractServiceId = generateContractServiceId();
 
-
+// ensure  that the input date is correct
             if((startDatePicker.toString().length()!= 0)&& (endDatePicker.toString().length()!=0)){
                 String startDate = startDatePicker.getDate().toString();
                 String endDate = endDatePicker.getDate().toString();
@@ -186,7 +187,7 @@ class WelcomePanel extends Panel {
             }
         });
     }
-
+//generate Contract Service Id
     private String generateContractServiceId() {
         String contractId =  "SEV";
         Random random = new Random();

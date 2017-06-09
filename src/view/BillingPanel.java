@@ -16,6 +16,8 @@ import static model.Event.EventType;
 import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
 
+
+// BillingPanel class is designed to generate the bill information
 class BillingPanel extends JPanel {
     private static final double motionSensorPrice = 50.00;
     private static final double tempSensorPrice = 100.00;
@@ -94,15 +96,12 @@ class BillingPanel extends JPanel {
     private JButton generateBillButton;
 
     private SecurityService securityService;
-
+// constructor of BillingPanel
     public BillingPanel() {
         securityService = SecurityService.getInstance();
 
         customer = securityService.getCustomer();
         sectionList = securityService.getBuildingSections();
-//        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-//        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
-//        setLayout(boxLayout);
 
         setLayout(new MigLayout("","Right"));
         FlowLayout flowLayout = new FlowLayout(FlowLayout.RIGHT);
@@ -110,21 +109,18 @@ class BillingPanel extends JPanel {
         serviceContractIdLabel = new JLabel("Service Contract Id");
         serviceContractIdTextFiled = new JTextField(15);
         serviceContractIdTextFiled.setPreferredSize(new Dimension(100, 20));
-  //      JPanel p1 = new JPanel(flowLayout);
         add(serviceContractIdLabel,"span 2 ");
         add(serviceContractIdTextFiled,"wrap");
 
         customerNameLabel = new JLabel("Customer Name");
         customerNameTextFiled = new JTextField(15);
         customerNameTextFiled.setPreferredSize(new Dimension(100, 20));
-     //   JPanel p2 = new JPanel(flowLayout);
         add(customerNameLabel,"span 2");
         add(customerNameTextFiled,"wrap");
 
         customerAddressLabel = new JLabel("Property Address");
         customerAddressTextFiled = new JTextField(15);
         customerAddressTextFiled.setPreferredSize(new Dimension(100, 20));
-        //JPanel p3 = new JPanel(flowLayout);
         add(customerAddressLabel,"span 2 ");
         add(customerAddressTextFiled,"wrap");
 
@@ -134,7 +130,6 @@ class BillingPanel extends JPanel {
         secondaryContactLabel = new JLabel("Secondary Contact Number");
         secondaryContactTextFiled = new JTextField(15);
         secondaryContactTextFiled.setPreferredSize(new Dimension(100, 20));
-       // JPanel p4 = new JPanel(flowLayout);
         add(primaryContactLabel,"span 2");
         add(primaryContactTextFiled,"wrap");
         add(secondaryContactLabel,"span 2 ");
@@ -144,7 +139,6 @@ class BillingPanel extends JPanel {
         customerContactLabel = new JLabel("Contact Phone");
         customerContactTextFiled = new JTextField(15);
         customerContactTextFiled.setPreferredSize(new Dimension(100, 20));
-        //JPanel p5 = new JPanel(flowLayout);
         add(customerContactLabel,"span 2 ");
         add(customerContactTextFiled,"wrap");
 
@@ -155,7 +149,6 @@ class BillingPanel extends JPanel {
         effectiveFromTextField.setPreferredSize(new Dimension(100, 20));
         effectiveToTextField = new JTextField(15);
         effectiveToTextField.setPreferredSize(new Dimension(100, 20));
-      //  JPanel p10 = new JPanel(flowLayout);
 
         add(effectiveDatesfromLabel,"span 2");
         add(effectiveFromTextField,"wrap");
@@ -166,7 +159,6 @@ class BillingPanel extends JPanel {
         numberTempSensorsLabel = new JLabel("No. Of Temperature Sensors");
         numberTempSensorsTextField = new JTextField(15);
         numberTempSensorsTextField.setPreferredSize(new Dimension(100, 20));
-        //JPanel p6 = new JPanel(flowLayout);
         add(numberTempSensorsLabel,"span 2");
         add(numberTempSensorsTextField,"wrap");
 
@@ -180,14 +172,12 @@ class BillingPanel extends JPanel {
         numberMotionSensorLabel = new JLabel("No. Of Motion Sensors");
         numberMotionSensorTextField = new JTextField(15);
         numberMotionSensorTextField.setPreferredSize(new Dimension(100, 20));
-       // JPanel p7 = new JPanel(flowLayout);
         add(numberMotionSensorLabel,"span 2");
         add(numberMotionSensorTextField,",wrap");
 
         perFeeMotionSensorLabel = new JLabel("Fee Per Motion Sensor");
         perFeeMotionSensorTextField = new JTextField(15);
         perFeeMotionSensorTextField.setPreferredSize(new Dimension(100, 20));
-       // JPanel p12 = new JPanel(flowLayout);
         add(perFeeMotionSensorLabel,"span 2");
         add(perFeeMotionSensorTextField,"wrap");
 
@@ -195,14 +185,12 @@ class BillingPanel extends JPanel {
         initTempServiceFeeLabel = new JLabel("Initial Temperature Sensor Installation Charge");
         initTempServiceFeeTextField = new JTextField(15);
         initTempServiceFeeTextField.setPreferredSize(new Dimension(100, 20));
-       // JPanel p8 = new JPanel(flowLayout);
         add(initTempServiceFeeLabel,"span 2");
         add(initTempServiceFeeTextField,"span ,wrap");
 
         initMotionServiceFeeLabel = new JLabel("Initial Motion Sensor Installation Charge");
         initMotionServiceFeeTextField = new JTextField(15);
         initMotionServiceFeeTextField.setPreferredSize(new Dimension(100, 20));
-       // JPanel p9 = new JPanel(flowLayout);
         add(initMotionServiceFeeLabel,"span2 ");
         add(initMotionServiceFeeTextField,"wrap");
 
@@ -214,7 +202,6 @@ class BillingPanel extends JPanel {
         extraTempServiceCountTextField = new JTextField(15);
         extraTempServiceCountTextField.setPreferredSize(new Dimension(100, 20));
 
-       // JPanel p13 = new JPanel(flowLayout);
         add(extraPerFeeTempLabel,"span2  ");
         add(extraPerFeeTempTextField,"wrap");
         add(extraTempServiceCountLabel,"span2 ");
@@ -228,7 +215,6 @@ class BillingPanel extends JPanel {
         extraMotionServiceCountTextField = new JTextField(15);
         extraMotionServiceCountTextField.setPreferredSize(new Dimension(100, 20));
 
-        //JPanel p14 = new JPanel(flowLayout);
         add(extraPerFeeMotionLabel,"span2 ");
         add(extraPerFeeMotionTextField,"wrap");
         add(extraMotionServiceCountLabel,"span 2");
@@ -246,7 +232,6 @@ class BillingPanel extends JPanel {
         totalCostTextField = new JTextField(15);
         totalCostTextField.setPreferredSize(new Dimension(100, 20));
 
-        //JPanel p15 = new JPanel(flowLayout);
         add(motionSensorTotalCostLabel,"span 2");
         add(motionSensorTotalCostTextField,"wrap");
         add(tempSensorTotalCostLabel,"span 2 ");
@@ -281,8 +266,9 @@ class BillingPanel extends JPanel {
         add(eventReport);
 
     }
-
+// fill all bill information in the panel
     private void fillInBillInformation() {
+
         serviceContractIdTextFiled.setText(customer.getServiceContractId());
         customerNameTextFiled.setText(customer.getName());
         customerAddressTextFiled.setText(customer.getAddress());
@@ -331,7 +317,7 @@ class BillingPanel extends JPanel {
         }
         return count;
     }
-
+//get Motion Sensor Total Cost
     private double getMotionSensorTotalCost() {
         double cost = 0;
 
@@ -343,6 +329,7 @@ class BillingPanel extends JPanel {
         return cost;
     }
 
+    //get Temperature  Sensor Total Cost
     private double getTempSensorTotalCost() {
         double cost = 0;
         if (tempSensorCount > 0) {
